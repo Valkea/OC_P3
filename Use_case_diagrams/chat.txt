@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+
+:Utilisateurs du site: as users
+
+:Les étudiants: as students
+:Les tuteurs: as mentors
+:Équipe Dev4U: as tech #Cyan
+:Équipe Learn@Home: as owner #Cyan
+
+rectangle "Système de discussion instantanée" as g_chat {
+
+	usecase "Voir les messages" as a_chat
+	usecase "Envoyer un message" as a_chat_send
+	usecase "Ajouter un contact" as a_chat_add_contact
+	usecase "Supprimer un contact" as a_chat_del_contact
+	usecase "Ajouter une photo de profil" as a_chat_photo #Organge
+	usecase "Voir l'heure des messages" as a_chat_time #Red
+}
+
+users -- a_chat
+users -- a_chat_send
+users -- a_chat_add_contact
+users -- a_chat_del_contact
+users -- a_chat_photo
+users -- a_chat_time
+
+g_chat -[#Cyan]- tech
+
+students -- users
+mentors -- users
+
+@enduml
