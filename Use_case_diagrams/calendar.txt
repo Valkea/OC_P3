@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+
+:Les étudiants: as students
+:Les tuteurs: as mentors
+:Équipe Dev4U: as tech #Cyan
+:Équipe Learn@Home: as owner #Cyan
+
+rectangle "Calendrier" as g_calendar {
+	usecase "Voir les rendez-vous" as a_rdv
+	usecase "Ajouter un rendez-vous à soi-même" as a_rdv_add_self
+	usecase "Ajouter un rendez-vous à un élève" as a_rdv_add_student #Orange
+	usecase "Ajouter un rendez-vous à un mentor" as a_rdv_add_mentor #Orange
+}
+
+students -- a_rdv
+students -- a_rdv_add_self
+
+mentors -- a_rdv
+mentors -- a_rdv_add_self
+mentors -[#Orange]- a_rdv_add_student
+
+g_calendar -[#Cyan]- tech
+
+a_rdv -[#Orange]- owner
+a_rdv_add_student -[#Orange]- owner
+a_rdv_add_mentor -[#Orange]- owner
+
+@enduml
