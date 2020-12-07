@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+
+:Utilisateurs du site: as users
+:Administrateurs du site: as admins #Cyan
+
+:Les étudiants: as students
+:Les tuteurs: as mentors
+:Équipe Dev4U: as tech #Cyan
+:Équipe Learn@Home: as owner #Cyan
+
+rectangle "Gestion de l'authentification" as g_auth {
+	usecase "S'identifier" as a_auth
+	usecase "S'inscrire" as a_signup
+	usecase "Récupérer le mot de passe" as a_pwd
+}
+
+users -- a_signup
+users -- a_auth
+users -- a_pwd
+
+a_auth -[#Cyan]- admins
+a_pwd -[#Cyan]- admins
+
+students -- users
+mentors -- users
+admins -[#Cyan]- tech
+admins -[#Cyan]- owner
+
+@enduml
