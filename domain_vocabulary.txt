@@ -1,48 +1,46 @@
-met en relation
-enfant(s) en difficulté scolaire
-tuteur(s) bénévole(s)
+
+utilisateur
+enfants en difficulté scolaire
 élève(s)
-soutien scolaire à distance
+tuteur(s) bénévole(s)
 bénévole(s)
+
+--------------------------------------------------
+
+soutien scolaire à distance
 communiquer plus facilement
-assigné
 apprentissage
-rendez-vous
+met en relation
+communication
+assigné
 devoirs
 organiser
 interactions
-communication
+
+--------------------------------------------------
 
 connexion
-Tableau de bord
-Interface de chat
-calendrier
-gestion des tâches
-compte
-
 récupération de mot de passe oublié
 création de compte
-informations récentes et importantes
-chat
-calendrier
-gestion des tâches
+compte
 
+tableau de bord
+informations récentes et importantes
 récapitulatif des tâches (to-dolist)
 liste des événements prochains
+un indicateur
 
 interface de chat
 système de discussion instantanée
-
+chat
 historique des conversations
-
 ajouter supprimer un contact
-
 photo de profil de l’expéditeur
-
-un indicateur
-
 horodatage des messages
 
+calendrier
 événements
 rendez-vous
-utilisateur
+
+gestion des tâches
+to-dolist
