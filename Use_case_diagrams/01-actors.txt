@@ -1,11 +1,11 @@
 @startuml
 
 rectangle "Utilisateurs" as users {
-:Enfants en difficulté scolaire: as students
-:Tuteurs bénévoles: as mentors
+:Enfants en difficulté scolaire: as students #Yellow
+:Tuteurs bénévoles: as mentors #Yellow
 }
 
-rectangle "Autres" as admins #CCC {
+rectangle "Autres" as admins {
 :<<Dev4U>>: as tech #Cyan
 :<<Learn@Home>>: as owner #Cyan
 }

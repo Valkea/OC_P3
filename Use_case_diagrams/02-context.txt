@@ -3,8 +3,8 @@
 left to right direction
 
 rectangle "Acteurs principaux" as g_main {
-	:Enfants en difficulté scolaire: as students
-	:Tuteurs bénévoles: as mentors
+	:Enfant en difficulté scolaire: as students #Yellow
+	:Tuteur bénévole: as mentors #Yellow
 }
 
 rectangle "Acteurs secondaires" as g_secondary {

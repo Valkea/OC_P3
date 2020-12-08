@@ -3,7 +3,7 @@
 left to right direction
 
 
-:Utilisateur du site: as user
+:Utilisateur du site: as user #Yellow
 :Enfant en difficulté scolaire: as student
 :Tuteur bénévole: as mentor
 
@@ -18,7 +18,7 @@ rectangle "System" as g_system {
 	usecase "Discussion instantanée" as a_chat
 	usecase "Gestion des rendez-vous" as a_cal
 	usecase "Gestion des tâches" as a_todo
-	usecase "Gestion administrative" as a_admin
+	usecase "Gestion administrative" as a_admin #Orange
 }
 
 
@@ -28,5 +28,6 @@ user --- a_todo
 
 g_system --- tech
 a_admin --- owner
+a_cal --- owner
 
 @enduml
