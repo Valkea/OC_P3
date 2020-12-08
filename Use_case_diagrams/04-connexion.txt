@@ -1,13 +1,19 @@
 @startuml
 left to right direction
 
-:Utilisateur du site: as users
-:Administrateur du site: as admins #Cyan
 
-:Étudiant: as students
-:Tuteur: as mentors
-:Équipe Dev4U: as tech #Red
+:Utilisateur du site: as user #Yellow
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
+
+:Équipe Dev4U: as tech #Cyan
 :Équipe Learn@Home: as owner #Cyan
+
+
+student -[#AAA]-^ user
+mentor -[#AAA]-^ user
+owner -[#AAA]-^ user
+
 
 rectangle "Gestion de l'authentification" as g_auth {
 	usecase "S'identifier" as a_auth
@@ -15,16 +21,15 @@ rectangle "Gestion de l'authentification" as g_auth {
 	usecase "Récupérer le mot de passe" as a_pwd
 }
 
-users -- a_signup
-users -- a_auth
-users -- a_pwd
+'######
 
-a_auth -[#Cyan]- admins
-a_pwd -[#Cyan]- admins
 
-students -- users
-mentors -- users
-admins -[#Cyan]- tech
-admins -[#Cyan]- owner
+user -- a_signup
+user -- a_auth
+user -- a_pwd
+
+'######
+
+tech -- g_auth
 
 @enduml

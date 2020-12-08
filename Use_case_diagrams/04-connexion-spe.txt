@@ -1,0 +1,65 @@
+@startuml
+left to right direction
+'top to bottom direction
+
+
+:Utilisateur du site: as user #Yellow
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
+
+:Équipe Dev4U: as tech #Cyan
+:Équipe Learn@Home: as owner #Cyan
+
+
+student -[#AAA]-^ user
+mentor -[#AAA]-^ user
+owner -[#AAA]-^ user
+
+
+rectangle "Gestion de l'authentification" as g_auth {
+	usecase "S'identifier" as a_auth
+	usecase "S'inscrire" as a_signup
+	usecase "Récupérer le mot de passe" as a_recover
+
+	usecase "Comme Étudiant" as a_as_student #Yellow
+	usecase "Comme Tuteur" as a_as_mentor #Yellow
+	usecase "Comme membre Learn@Home" as a_as_owner #Yellow
+
+	usecase "Soumettre les infos de récupération" as a_input_recover #Yellow
+	usecase "Soumettre les infos d'inscription" as a_input_signup #Yellow
+	usecase "Soumettre les infos d'authentification" as a_input_logpass #Yellow
+	usecase "Obtenir un token d'identification" as a_get_token #Yellow
+	usecase "Recevoir un email" as a_get_email #Yellow
+}
+
+'######
+
+
+user -- a_signup
+user -- a_auth
+user -- a_recover
+
+'######
+
+a_auth --|> a_get_token : "<<include>>"
+a_get_token --|> a_input_logpass : "<<include>>"
+
+
+a_signup --|> a_as_student : "<<extend>>\nEXT: si acteur == étudiant"
+a_signup --|> a_as_mentor : "<<extend>>\nEXT: si acteur == tuteur"
+a_signup --|> a_as_owner : "<<extend>>\nEXT: si acteur == Learn@Home"
+
+a_as_student --|> a_input_signup : "<<include>>"
+a_as_mentor --|> a_input_signup : "<<include>>"
+a_as_owner --|> a_input_signup : "<<include>>"
+
+a_recover ---|> a_input_recover : "<<include>>"
+
+a_input_signup --|> a_get_email : "<<include>>"
+a_input_recover --|> a_get_email : "<<include>>"
+
+'######
+
+tech -- g_auth
+
+@enduml
