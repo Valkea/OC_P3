@@ -1,12 +1,18 @@
 @startuml
 left to right direction
 
-:Utilisateurs du site: as users
 
-:Les étudiants: as students
-:Les tuteurs: as mentors
+:Utilisateur du site: as user #Yellow
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
+
 :Équipe Dev4U: as tech #Cyan
 :Équipe Learn@Home: as owner #Cyan
+
+
+student -[#AAA]-^ user
+mentor -[#AAA]-^ user
+owner -[#AAA]-^ user
 
 rectangle "Système de discussion instantanée" as g_chat {
 

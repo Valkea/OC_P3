@@ -23,7 +23,7 @@ rectangle "Gestion de l'authentification" as g_auth {
 
 	usecase "Comme Étudiant" as a_as_student #Yellow
 	usecase "Comme Tuteur" as a_as_mentor #Yellow
-	usecase "Comme membre Learn@Home" as a_as_owner #Yellow
+	usecase "Comme membre Learn@Home" as a_as_owner #Cyan
 
 	usecase "Soumettre les infos de récupération" as a_input_recover #Yellow
 	usecase "Soumettre les infos d'inscription" as a_input_signup #Yellow
@@ -41,22 +41,22 @@ user -- a_recover
 
 '######
 
-a_auth --|> a_get_token : "<<include>>"
-a_get_token --|> a_input_logpass : "<<include>>"
+a_auth ..|> a_get_token : "<<include>>"
+a_get_token ..|> a_input_logpass : "<<include>>"
 
 
-a_signup --|> a_as_student : "<<extend>>\nEXT: si acteur == étudiant"
-a_signup --|> a_as_mentor : "<<extend>>\nEXT: si acteur == tuteur"
-a_signup --|> a_as_owner : "<<extend>>\nEXT: si acteur == Learn@Home"
+a_signup <|.. a_as_student : "<<extend>>\nEXT: si acteur == étudiant"
+a_signup <|.. a_as_mentor : "<<extend>>\nEXT: si acteur == tuteur"
+a_signup <|.. a_as_owner : "<<extend>>\nEXT: si acteur == Learn@Home"
 
-a_as_student --|> a_input_signup : "<<include>>"
-a_as_mentor --|> a_input_signup : "<<include>>"
-a_as_owner --|> a_input_signup : "<<include>>"
+a_as_student ..|> a_input_signup : "<<include>>"
+a_as_mentor ..|> a_input_signup : "<<include>>"
+a_as_owner ..|> a_input_signup : "<<include>>"
 
-a_recover ---|> a_input_recover : "<<include>>"
+a_recover ...|> a_input_recover : "<<include>>"
 
-a_input_signup --|> a_get_email : "<<include>>"
-a_input_recover --|> a_get_email : "<<include>>"
+a_input_signup ..|> a_get_email : "<<include>>"
+a_input_recover ..|> a_get_email : "<<include>>"
 
 '######
 
