@@ -5,7 +5,7 @@ rectangle "Utilisateurs" as users {
 :Tuteurs bénévoles: as mentors
 }
 
-rectangle "Administrateurs" as admins #CCC {
+rectangle "Autres" as admins #CCC {
 :<<Dev4U>>: as tech #Cyan
 :<<Learn@Home>>: as owner #Cyan
 }

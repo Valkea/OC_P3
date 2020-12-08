@@ -1,12 +1,12 @@
 @startuml
 left to right direction
 
-:Utilisateurs du site: as users
-:Administrateurs du site: as admins #Cyan
+:Utilisateur du site: as users
+:Administrateur du site: as admins #Cyan
 
-:Les étudiants: as students
-:Les tuteurs: as mentors
-:Équipe Dev4U: as tech #Cyan
+:Étudiant: as students
+:Tuteur: as mentors
+:Équipe Dev4U: as tech #Red
 :Équipe Learn@Home: as owner #Cyan
 
 rectangle "Gestion de l'authentification" as g_auth {
