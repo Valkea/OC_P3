@@ -1,27 +1,35 @@
 @startuml
 left to right direction
 
-:Les étudiants: as students
-:Les tuteurs: as mentors
+
+:Utilisateur du site: as user #Yellow
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
+
 :Équipe Dev4U: as tech #Cyan
 :Équipe Learn@Home: as owner #Cyan
 
+
+student -[#AAA]-^ user
+mentor -[#AAA]-^ user
+owner -[#AAA]-^ user
+
+
 rectangle "Gestionnaire de tâches" as g_taskmanager {
 	usecase "Voir les tâches" as a_task
-	usecase "Ajouter une tâche à soi-même" as a_task_add_self
-	usecase "Ajouter une tâche à un élève" as a_task_add_student #Orange
-	usecase "Ajouter une tâche à un mentor" as a_task_add_mentor #Red
-	usecase "Organiser les tâches" as a_task_organize #Red
+	usecase "Ajouter une tâche" as a_task_add_self
 }
 
-students -- a_task
-students -- a_task_add_self
+usecase "S'authentifier" as a_auth #Yellow
+a_auth <|. g_taskmanager : "\n<<include>>        \n"
 
-mentors -- a_task
-mentors -- a_task_add_self
-mentors -[#Orange]- a_task_add_student
+'######
 
-g_taskmanager -[#Cyan]- tech
+user -- a_task
+user -- a_task_add_self
 
+'######
+
+tech -- g_taskmanager
 
 @enduml
