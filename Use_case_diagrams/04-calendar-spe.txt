@@ -1,0 +1,55 @@
+@startuml
+left to right direction
+
+
+:Utilisateur du site: as user #Yellow
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
+
+:Équipe Dev4U: as tech #Cyan
+:Équipe Learn@Home: as owner #Cyan
+
+
+student -[#AAA]-^ user
+mentor -[#AAA]-^ user
+owner -[#AAA]-^ user
+
+
+rectangle "Calendrier" as g_calendar {
+	usecase "Voir ses rendez-vous" as a_rdv
+	usecase "Ajouter un rendez-vous" as a_rdv_add_self
+
+	usecase "Voir les détails d'un RDV" as a_view_details #Yellow
+	usecase "Voir tous les RDV" as a_view_all #Yellow
+
+	usecase "Enregistrer les détails du RDV" as a_input_details #Yellow
+	usecase "Choisir une date" as a_select_date #Yellow
+	usecase "Sélectionner un tuteur" as a_select_mentor #Yellow
+	usecase "Sélectionner un étudiant" as a_select_student #Yellow
+}
+
+usecase "S'authentifier" as a_auth #Yellow
+a_auth <|. g_calendar : "\n<<include>>        \n"
+
+'######
+
+a_rdv_add_self ..|> a_select_mentor : "<<extend>>\nEXT: si acteur != Tuteur"
+a_rdv_add_self ..|> a_select_student : "<<extend>>\nEXT: si acteur != Etudiant"
+a_rdv_add_self <|.. a_select_date : "\n<<include>>"
+a_rdv_add_self <|.. a_input_details : "\n<<include>>"
+
+'######
+
+a_rdv <|.. a_view_details : "<<include>>"
+a_rdv ..|> a_view_all : "<<extends>>\nEXT: si acteur == Learn@Home"
+
+'######
+
+user -- a_rdv
+user -- a_rdv_add_self
+
+'######
+
+tech -- g_calendar
+
+@enduml

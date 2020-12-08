@@ -1,29 +1,35 @@
 @startuml
 left to right direction
 
-:Les étudiants: as students
-:Les tuteurs: as mentors
+
+:Utilisateur du site: as user #Yellow
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
+
 :Équipe Dev4U: as tech #Cyan
 :Équipe Learn@Home: as owner #Cyan
 
+
+student -[#AAA]-^ user
+mentor -[#AAA]-^ user
+owner -[#AAA]-^ user
+
+
 rectangle "Calendrier" as g_calendar {
-	usecase "Voir les rendez-vous" as a_rdv
-	usecase "Ajouter un rendez-vous à soi-même" as a_rdv_add_self
-	usecase "Ajouter un rendez-vous à un élève" as a_rdv_add_student #Orange
-	usecase "Ajouter un rendez-vous à un mentor" as a_rdv_add_mentor #Orange
+	usecase "Voir ses rendez-vous" as a_rdv
+	usecase "Ajouter un rendez-vous" as a_rdv_add_self
 }
 
-students -- a_rdv
-students -- a_rdv_add_self
+usecase "S'authentifier" as a_auth #Yellow
+a_auth <|. g_calendar : "\n<<include>>        \n"
 
-mentors -- a_rdv
-mentors -- a_rdv_add_self
-mentors -[#Orange]- a_rdv_add_student
+'######
 
-g_calendar -[#Cyan]- tech
+user -- a_rdv
+user -- a_rdv_add_self
 
-a_rdv -[#Orange]- owner
-a_rdv_add_student -[#Orange]- owner
-a_rdv_add_mentor -[#Orange]- owner
+'######
+
+tech -- g_calendar
 
 @enduml
