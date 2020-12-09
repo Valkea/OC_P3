@@ -1,0 +1,20 @@
+@startuml
+!include 01-actors.txt
+left to right direction
+
+TODO
+
+rectangle "Gestionnaire de tâches" as group {
+	usecase "Voir les tâches" as a_task_view
+	usecase "Ajouter des tâches" as a_task_add
+	usecase "Utiliser le menu principal" as a_nav #Orange
+}
+
+usecase "S'authentifier" as a_auth #Yellow
+a_auth <|. group : "\n<<include>>        \n"
+
+user -- a_task_view
+user -- a_task_add
+user -- a_nav
+
+@enduml
