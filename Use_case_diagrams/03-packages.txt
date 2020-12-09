@@ -1,33 +1,30 @@
 @startuml
-
 left to right direction
 
 
-:Utilisateur du site: as user #Yellow
 :Enfant en difficulté scolaire: as student
 :Tuteur bénévole: as mentor
-
-student -[#AAA]-^ user
-mentor -[#AAA]-^ user
-
 :<<Learn@Home>>: as owner #Cyan
-:<<Dev4U>>: as tech #Cyan
+:Utilisateur du site: as user #Yellow
 
-
-rectangle "System" as g_system {
-	usecase "Discussion instantanée" as a_chat
-	usecase "Gestion des rendez-vous" as a_cal
-	usecase "Gestion des tâches" as a_todo
-	usecase "Gestion administrative" as a_admin #Orange
+rectangle "Learn@Home" as g_system {
+	usecase "M'identifier" as a_auth
+	usecase "Voir un récaputilatif \nde mon activité" as a_dash
+	usecase "Discuter en live avec \nles autres utilisateurs" as a_chat
+	usecase "Gérer mes rendez-vous \n " as a_cal
+	usecase "Gérer mes tâches" as a_todo
+	usecase "Gérer le site \net ses utilisateurs" as a_admin #Orange
 }
 
+student -[#BBB]--^ user
+mentor -[#BBB]--^ user
+owner -[#BBB]--^ user
 
-user --- a_chat
-user --- a_cal
-user --- a_todo
-
-g_system --- tech
-a_admin --- owner
-a_cal --- owner
+user -- a_auth
+user -- a_dash
+user -- a_chat
+user -- a_cal
+user -- a_todo
+owner -- a_admin
 
 @enduml

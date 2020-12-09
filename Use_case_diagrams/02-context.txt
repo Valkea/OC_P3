@@ -1,25 +1,19 @@
 @startuml
-
 left to right direction
 
-rectangle "Acteurs principaux" as g_main {
-	:Enfant en difficulté scolaire: as students #Yellow
-	:Tuteur bénévole: as mentors #Yellow
-}
 
-rectangle "Acteurs secondaires" as g_secondary {
-	:<<Learn@Home>>: as owner #Cyan
-	:<<Dev4U>>: as tech #Cyan
-}
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
+:<<Learn@Home>>: as owner #Cyan
+:Utilisateur du site: as user #Yellow
 
 rectangle "System" as g_system {
 }
 
+student -[#BBB]--^ user
+mentor -[#BBB]--^ user
+owner -[#BBB]--^ user
 
-students --- g_system
-mentors --- g_system
-
-g_system --- tech
-g_system --- owner
+user --- g_system
 
 @enduml

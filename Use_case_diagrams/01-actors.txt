@@ -1,13 +1,8 @@
 @startuml
+left to right direction
 
-rectangle "Utilisateurs" as users {
-:Enfants en difficulté scolaire: as students #Yellow
-:Tuteurs bénévoles: as mentors #Yellow
-}
-
-rectangle "Autres" as admins {
-:<<Dev4U>>: as tech #Cyan
+:Enfant en difficulté scolaire: as student #Yellow
+:Tuteur bénévole: as mentor #Yellow
 :<<Learn@Home>>: as owner #Cyan
-}
 
 @enduml
