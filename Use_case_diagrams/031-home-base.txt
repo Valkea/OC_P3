@@ -1,0 +1,33 @@
+@startuml
+!include 01-actors.txt
+left to right direction
+
+
+/':Parent: as parent
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
+:<<Learn@Home>>: as owner #Cyan
+
+:Utilisateur du site: as user #Yellow
+
+parent -[#BBB]-^ student
+student -[#BBB]--^ user
+mentor -[#BBB]--^ user
+'owner -[#BBB]--^ user
+'/
+
+rectangle "Home-page Learn@Home" as g {
+	usecase "M'informer sur l'association" as a_infos
+	usecase "M'inscrire" as a_signup
+	usecase "M'identifier" as a_signin
+}
+
+
+user -- a_infos
+user -- a_signup
+user -- a_signin
+
+'owner -- a_signup
+'owner -- a_signin
+
+@enduml

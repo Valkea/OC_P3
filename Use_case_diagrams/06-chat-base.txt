@@ -1,39 +1,23 @@
 @startuml
+!include 01-actors.txt
 left to right direction
 
 
-:Utilisateur du site: as user #Yellow
-:Enfant en difficulté scolaire: as student
-:Tuteur bénévole: as mentor
-
-:Équipe Dev4U: as tech #Cyan
-:Équipe Learn@Home: as owner #Cyan
-
-
-student -[#AAA]-^ user
-mentor -[#AAA]-^ user
-owner -[#AAA]-^ user
-
-rectangle "Système de discussion instantanée" as g_chat {
+rectangle "Système de discussion instantanée" as group {
 
 	usecase "Voir les messages" as a_chat
-	usecase "Envoyer un message" as a_chat_send
-	usecase "Ajouter un contact" as a_chat_add_contact
-	usecase "Supprimer un contact" as a_chat_del_contact
-	usecase "Ajouter une photo de profil" as a_chat_photo #Organge
-	usecase "Voir l'heure des messages" as a_chat_time #Red
+	usecase "Envoyer des messages" as a_chat_send
+	usecase "Gérer mes contacts" as a_chat_contact
+	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-users -- a_chat
-users -- a_chat_send
-users -- a_chat_add_contact
-users -- a_chat_del_contact
-users -- a_chat_photo
-users -- a_chat_time
+usecase "S'authentifier" as a_auth #Yellow
+a_auth <|. group : "\n<<include>>        \n"
 
-g_chat -[#Cyan]- tech
+user -- a_chat
+user -- a_chat_send
+user -- a_chat_contact
 
-students -- users
-mentors -- users
+user -- a_nav
 
 @enduml

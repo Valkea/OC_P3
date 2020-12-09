@@ -1,8 +1,16 @@
 @startuml
 left to right direction
 
-:Enfant en difficulté scolaire: as student #Yellow
-:Tuteur bénévole: as mentor #Yellow
+:Parent: as parent
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
 :<<Learn@Home>>: as owner #Cyan
+
+:Utilisateur du site: as user #Yellow
+
+parent -[#BBB]-^ student
+student -[#BBB]--^ user
+mentor -[#BBB]--^ user
+owner -[#BBB]--^ user
 
 @enduml

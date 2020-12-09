@@ -1,18 +1,10 @@
 @startuml
+!include 01-actors.txt
 left to right direction
 
 
-:Enfant en difficulté scolaire: as student
-:Tuteur bénévole: as mentor
-:<<Learn@Home>>: as owner #Cyan
-:Utilisateur du site: as user #Yellow
-
 rectangle "System" as g_system {
 }
-
-student -[#BBB]--^ user
-mentor -[#BBB]--^ user
-owner -[#BBB]--^ user
 
 user --- g_system
 

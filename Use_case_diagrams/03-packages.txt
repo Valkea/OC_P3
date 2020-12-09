@@ -1,30 +1,29 @@
 @startuml
+!include 01-actors.txt
 left to right direction
 
 
-:Enfant en difficulté scolaire: as student
-:Tuteur bénévole: as mentor
-:<<Learn@Home>>: as owner #Cyan
-:Utilisateur du site: as user #Yellow
-
 rectangle "Learn@Home" as g_system {
+	usecase "M'informer sur Learn@Home" as a_home #Orange
 	usecase "M'identifier" as a_auth
+	usecase "Gérer mon profil" as a_profil #Orange
 	usecase "Voir un récaputilatif \nde mon activité" as a_dash
 	usecase "Discuter en live avec \nles autres utilisateurs" as a_chat
 	usecase "Gérer mes rendez-vous \n " as a_cal
 	usecase "Gérer mes tâches" as a_todo
+	usecase "Naviguer entre \nles rubriques" as a_nav #Orange
 	usecase "Gérer le site \net ses utilisateurs" as a_admin #Orange
 }
 
-student -[#BBB]--^ user
-mentor -[#BBB]--^ user
-owner -[#BBB]--^ user
 
+user -- a_home
 user -- a_auth
+user -- a_profil
 user -- a_dash
 user -- a_chat
 user -- a_cal
 user -- a_todo
+user -- a_nav
 owner -- a_admin
 
 @enduml

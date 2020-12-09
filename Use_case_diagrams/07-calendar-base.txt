@@ -1,35 +1,22 @@
 @startuml
+!include 01-actors.txt
 left to right direction
 
 
-:Utilisateur du site: as user #Yellow
-:Enfant en difficulté scolaire: as student
-:Tuteur bénévole: as mentor
-
-:Équipe Dev4U: as tech #Cyan
-:Équipe Learn@Home: as owner #Cyan
-
-
-student -[#AAA]-^ user
-mentor -[#AAA]-^ user
-owner -[#AAA]-^ user
-
-
 rectangle "Calendrier" as g_calendar {
-	usecase "Voir ses rendez-vous" as a_rdv
-	usecase "Ajouter un rendez-vous" as a_rdv_add_self
+	usecase "Voir les rendez-vous" as a_rdv_see
+	usecase "Ajouter un rendez-vous" as a_rdv_add
+	usecase "Soliciter un rendez-vous" as a_rdv_ask #Orange
+	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
 usecase "S'authentifier" as a_auth #Yellow
 a_auth <|. g_calendar : "\n<<include>>        \n"
 
-'######
+user -- a_rdv_see
+user -- a_rdv_add
+student -- a_rdv_ask
+user -- a_nav
 
-user -- a_rdv
-user -- a_rdv_add_self
-
-'######
-
-tech -- g_calendar
 
 @enduml

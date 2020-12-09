@@ -1,0 +1,32 @@
+@startuml
+!include 01-actors.txt
+left to right direction
+
+rectangle "Menu principal" as group {
+	usecase "Aller sur la page d'accueil \nde l'association" as a_menu_home #Orange
+	usecase "Aller sur mon tableau de bord" as a_menu_dash
+	usecase "Aller sur le chat" as a_menu_chat
+	usecase "Aller sur mon calendrier" as a_menu_cal
+	usecase "Aller sur ma liste des tâches" as a_menu_todo
+	usecase "Aller sur mon profil" as a_menu_profil #Orange
+	usecase "Me déconnecter" as a_logout #Orange
+
+	usecase "S'authentifier" as a_auth #Yellow
+}
+
+user -- a_menu_home
+user -- a_menu_dash
+user -- a_menu_profil
+user -- a_menu_chat
+user -- a_menu_cal
+user -- a_menu_todo
+user -- a_logout
+
+a_menu_dash ..^ a_auth : "\n<<include>>        \n"
+a_menu_chat ..^ a_auth : "\n<<include>>        \n"
+a_menu_cal ..^ a_auth : "\n<<include>>        \n"
+a_menu_todo ..^ a_auth : "\n<<include>>        \n"
+a_menu_profil ..^ a_auth : "\n<<include>>        \n"
+a_logout ..^ a_auth : "\n<<include>>        \n"
+
+@enduml

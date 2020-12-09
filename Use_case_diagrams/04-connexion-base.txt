@@ -1,35 +1,19 @@
 @startuml
+!include 01-actors.txt
 left to right direction
 
 
-:Utilisateur du site: as user #Yellow
-:Enfant en difficulté scolaire: as student
-:Tuteur bénévole: as mentor
-
-:Équipe Dev4U: as tech #Cyan
-:Équipe Learn@Home: as owner #Cyan
-
-
-student -[#AAA]-^ user
-mentor -[#AAA]-^ user
-owner -[#AAA]-^ user
-
-
 rectangle "Gestion de l'authentification" as g_auth {
-	usecase "S'identifier" as a_auth
-	usecase "S'inscrire" as a_signup
-	usecase "Récupérer le mot de passe" as a_pwd
+	usecase "M'inscrire" as a_signup
+	usecase "M'identifier" as a_signin
+	usecase "Récupérer mon\nmot de passe" as a_pwd
+	usecase "Me déconnecter" as a_logout #Orange
 }
-
-'######
 
 
 user -- a_signup
-user -- a_auth
+user -- a_signin
 user -- a_pwd
-
-'######
-
-tech -- g_auth
+user -- a_logout
 
 @enduml
