@@ -1,0 +1,87 @@
+@startuml
+left to right direction
+
+
+:Utilisateur du site: as user #Yellow
+:Enfant en difficulté scolaire: as student
+:Tuteur bénévole: as mentor
+
+:Équipe Dev4U: as tech #Cyan
+:Équipe Learn@Home: as owner #Cyan
+
+
+student -[#AAA]-^ user
+mentor -[#AAA]-^ user
+owner -[#AAA]-^ user
+
+
+rectangle "Système de discussion instantanée" as g_chat {
+	usecase "Voir les messages" as a_view
+		usecase "Avec les anciens messages" as a_view_old
+		usecase "Avec les pièces jointes" as a_view_attach #Yellow
+		usecase "Avec l'horodatage" as a_view_time #Yellow
+		usecase "Avec les photos des expediteurs" as a_view_photos #Yellow
+		usecase "D'un contact précis" as a_view_one #Yellow
+		usecase "De tous les contacts" as a_view_all #Yellow
+
+	usecase "Envoyer un message" as a_send
+		usecase "Enregistrer un message" as a_send_input #Yellow
+		usecase "Supprimer une pièce jointe" as a_send_attach_rem #Yellow
+		usecase "Ajouter une pièce jointe" as a_send_attach_add #Yellow
+		usecase "Choisir un ou des contacts cibles" as a_send_target #Yellow
+
+'		usecase "Choisir un onglet existant" as a_ #Yellow
+'		usecase "Créer un nouvel espace de chat" as a_ #Yellow
+'			usecase "Choisir un ou des contacts cibles" as a_send_target #Yellow
+'		usecase "Fermer un espace de chat" as a_ #Yellow
+
+	usecase "Gérer les contacts" as a_manage_contacts
+		usecase "Supprimer un contact" as a_chat_del_contact #Yellow
+		usecase "Ajouter un contact" as a_chat_add_contact #Yellow
+
+	usecase "Gérer son profil" as a_manage_profil
+		usecase "Ajouter une photo de profil" as a_profil_photo #Yellow
+		usecase "Editer les détails du profil" as a_profil_edit #Yellow
+}
+
+usecase "S'authentifier" as a_auth #Yellow
+a_auth <|. g_chat : "\n<<include>>        \n"
+
+'### Voir msg ###
+
+a_view ..|> a_view_old : "<<include>>"
+a_view ..|> a_view_photos : "<<include>>"
+a_view ..|> a_view_attach : "<<include>>"
+a_view ..|> a_view_time : "<<include>>"
+a_view ..|> a_view_all : "<<include>>"
+a_view ..|> a_view_one : "<<include>>"
+
+'### Ecrire ###
+
+a_send ..|> a_send_input : "<<include>>"
+a_send ..|> a_send_attach_add : "<<include>>"
+a_send ..|> a_send_attach_rem : "<<include>>"
+a_send ..|> a_send_target : "<<include>>"
+
+'### Contacts ###
+
+a_manage_contacts ..|> a_chat_add_contact : "<<include>>"
+a_manage_contacts ..|> a_chat_del_contact : "<<include>>"
+
+'### Profil ###
+
+a_manage_profil ..|> a_profil_edit : "<<include>>"
+a_manage_profil ..|> a_profil_photo : "<<include>>"
+
+'######
+
+user -- a_view
+user -- a_send
+user -- a_manage_profil
+user -- a_manage_contacts
+
+'######
+
+tech -- g_chat
+
+@enduml
