@@ -7,13 +7,11 @@ rectangle "Authentification" as g_auth {
 	usecase "M'inscrire" as a_signup
 	usecase "M'identifier" as a_signin
 	usecase "Récupérer mon\nmot de passe" as a_pwd
-	usecase "Me déconnecter" as a_logout #Orange
 }
 
 
 user -- a_signup
 user -- a_signin
 user -- a_pwd
-user -- a_logout
 
 @enduml

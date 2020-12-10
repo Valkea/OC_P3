@@ -1,4 +1,55 @@
 @startuml
+!include 01-actors.txt
+left to right direction
+top to bottom direction
+
+rectangle "Gestionnaire de tâches" as group {
+	usecase "Voir les tâches" as a_todo_view
+		usecase "Voir les détails d'une tâche" as a_view_details #Orange
+		usecase "Voir mes tâches" as a_view_self #Orange
+		usecase "Voir les tâches de mes étudiants" as a_view_students #Orange
+		usecase "Voir les tâches de mes tuteurs" as a_view_all #Cyan
+
+	usecase "Ajouter des tâches" as a_todo_add
+		usecase "Saisir une tâche" as a_todo_add_input #Orange
+		usecase "Sélectionner un élève \nà qui attribuer la tâche" as a_todo_add_target #Orange
+
+	usecase "Clore des tâches" as a_todo_ok
+		usecase "Sélectionner une tâche" as a_todo_select #Orange
+
+	usecase "Editer des tâches" as a_todo_edit #Orange
+		usecase "Saisir les nouvelles données" as a_edit_input #Orange
+
+	usecase "Supprimer des tâches" as a_todo_del #Orange
+	usecase "Utiliser le menu principal" as a_nav #Orange
+}
+
+usecase "Je suis authentifié" as a_auth #Yellow
+a_auth <|. group : "\n<<include>>        \n"
+
+user -- a_todo_view
+user -- a_todo_add
+user -- a_todo_ok
+user -- a_todo_edit
+user -- a_todo_del
+user -- a_nav
+
+a_todo_view ..^ a_view_details : "<<include>>"
+a_todo_view ..^ a_view_self : "<<include>>"
+a_todo_view ^.. a_view_all : "<<extends>>\nEXT: si acteur == Learn@Home"
+a_todo_view ^.. a_view_students : "<<extends>>\nEXT: si acteur != student"
+
+a_todo_add ^.. a_todo_add_target : "<<extends>>\nEXT: si acteur != Etudiant"
+a_todo_add ..^ a_todo_add_input : "<<include>>"
+
+a_todo_ok ..^ a_todo_select : "<<include>>"
+a_todo_del ..^ a_todo_select : "<<include>>"
+a_todo_edit ..^ a_todo_select : "<<include>>"
+a_todo_select .^ a_todo_view : "<<include>>"
+
+a_todo_edit .^ a_edit_input : "<<include>>"
+
+/'
 left to right direction
 
 
@@ -58,5 +109,5 @@ user -- a_task_add_self
 '######
 
 tech -- g_taskmanager
-
+'/
 @enduml

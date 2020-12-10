@@ -17,15 +17,15 @@ rectangle "Authentification" as g_auth {
 		usecase "Clicker sur l'email de confirmation" as a_recover_email #Orange
 		usecase "Donner les infos demandées" as a_recover_input #Orange
 
-	usecase "Me déconnecter" as a_logout #Orange
-		usecase "Me déconnecter \ndepuis le menu principal" as a_logout_menu #Orange
+	'usecase "Me déconnecter" as a_logout #Orange
+	'	usecase "Me déconnecter \ndepuis le menu principal" as a_logout_menu #Orange
 }
 
 
 user -- a_signup
 user -- a_signin
 user -- a_recover
-user -- a_logout
+'user -- a_logout
 
 a_signup ..^ a_select : "<<include>>"
 a_signup ..^ a_info_input : "<<include>>"
@@ -35,6 +35,6 @@ a_signin ..^ a_signin_input : "<<include>>"
 a_recover ..^ a_recover_input : "<<include>>"
 a_recover ..^ a_recover_email : "<<include>>"
 
-a_logout ^-- a_logout_menu
+'a_logout ^-- a_logout_menu
 
 @enduml

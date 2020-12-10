@@ -3,16 +3,22 @@
 left to right direction
 
 rectangle "Gestionnaire de tâches" as group {
-	usecase "Voir les tâches" as a_task_view
-	usecase "Ajouter des tâches" as a_task_add
+	usecase "Voir les tâches" as a_todo_view
+	usecase "Ajouter des tâches" as a_todo_add
+	usecase "Clore des tâches" as a_todo_ok
+	usecase "Editer des tâches" as a_todo_edit #Orange
+	usecase "Supprimer des tâches" as a_todo_del #Orange
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "S'authentifier" as a_auth #Yellow
+usecase "Je suis authentifié" as a_auth #Yellow
 a_auth <|. group : "\n<<include>>        \n"
 
-user -- a_task_view
-user -- a_task_add
+user -- a_todo_view
+user -- a_todo_add
+user -- a_todo_ok
+user -- a_todo_edit
+user -- a_todo_del
 user -- a_nav
 
 @enduml

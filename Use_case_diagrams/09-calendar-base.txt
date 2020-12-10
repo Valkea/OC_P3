@@ -5,18 +5,21 @@ left to right direction
 
 rectangle "Calendrier" as g_calendar {
 	usecase "Voir les rendez-vous" as a_rdv_see
-	usecase "Ajouter un rendez-vous" as a_rdv_add
+	usecase "Ajouter des rendez-vous" as a_rdv_add
+	usecase "Editer des rendez-vous" as a_rdv_edit #Orange
+	usecase "Supprimer des rendez-vous" as a_rdv_del #Orange
 	usecase "Solliciter un rendez-vous" as a_rdv_ask #Orange
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "S'authentifier" as a_auth #Yellow
+usecase "Je suis authentifié" as a_auth #Yellow
 a_auth <|. g_calendar : "\n<<include>>        \n"
 
 user -- a_rdv_see
 user -- a_rdv_add
+user -- a_rdv_edit
+user -- a_rdv_del
 student -- a_rdv_ask
 user -- a_nav
-
 
 @enduml

@@ -5,14 +5,16 @@ left to right direction
 rectangle "Gestionnaire de profil" as group {
 	usecase "Editer mes informations" as a_edit_txt
 	usecase "Changer ma photo" as a_edit_photo
+	usecase "Clore mon compte" as a_edit_remove
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "S'authentifier" as a_auth #Yellow
+usecase "Je suis authentifié" as a_auth #Yellow
 a_auth <|. group : "\n<<include>>        \n"
 
 user -- a_edit_txt
 user -- a_edit_photo
+user -- a_edit_remove
 user -- a_nav
 
 @enduml

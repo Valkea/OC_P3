@@ -10,10 +10,11 @@ rectangle "Menu principal" as group {
 	usecase "Aller sur ma liste des tâches" as a_menu_todo
 	usecase "Aller sur mon profil" as a_menu_profil #Orange
 	usecase "Aller sur la page de \ngestion de l'association" as a_menu_admin #Orange
+	usecase "Aller sur la page contact" as a_menu_contact #Orange
 	usecase "Me déconnecter" as a_logout #Orange
 }
 
-usecase "S'authentifier" as a_auth #Yellow
+usecase "Je suis authentifié" as a_auth #Yellow
 a_auth .^ group : "\n<<exclude>> EXT: si page != acceuil        \n"
 
 user -- a_menu_home
@@ -22,6 +23,7 @@ user -- a_menu_profil
 user -- a_menu_chat
 user -- a_menu_cal
 user -- a_menu_todo
+user -- a_menu_contact
 owner -- a_menu_admin
 user -- a_logout
 

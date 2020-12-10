@@ -11,7 +11,7 @@ rectangle "Système de discussion instantanée" as group {
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "S'authentifier" as a_auth #Yellow
+usecase "Je suis authentifié" as a_auth #Yellow
 a_auth <|. group : "\n<<include>>        \n"
 
 user -- a_chat

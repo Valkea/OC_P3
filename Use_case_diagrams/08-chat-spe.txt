@@ -15,15 +15,15 @@ rectangle "Système de discussion instantanée" as group {
 		usecase "Joindre un fichier" as a_chat_send_files #Orange
 
 	usecase "Gérer mes contacts" as a_chat_contact
-		usecase "Chercher un contact" as a_contact_search #Orange
-			usecase "Ajouter un contact" as a_contact_add #Orange
+		usecase "Ajouter un contact" as a_contact_add #Orange
+			usecase "Chercher un contact" as a_contact_search #Orange
 		usecase "Afficher mes contact" as a_contact_list #Orange
 			usecase "Supprimer un contact" as a_contact_del #Orange
 
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "S'authentifier" as a_auth #Yellow
+usecase "Je suis authentifié" as a_auth #Yellow
 a_auth <|. group : "\n<<include>>        \n"
 
 user -- a_chat_read
@@ -40,9 +40,10 @@ a_chat_send ..^ a_chat_send_write : "<<include>>"
 a_chat_send ^.. a_chat_send_files : "<<extends>>\nEXT: si pièces-jointes > 0"
 
 a_chat_contact ..^ a_contact_list : "<<include>>"
-a_contact_search ..^ a_contact_add : "<<include>>"
-a_contact_list ..^ a_contact_del : "<<include>>"
-a_chat_contact ..^ a_contact_search : "<<include>>"
+a_contact_add .^ a_contact_search : "<<include>>"
+a_contact_list ^. a_contact_del : "<<include>>"
+a_chat_contact ..^ a_contact_add : "<<include>>"
+a_chat_contact ..^ a_contact_del : "<<include>>"
 
 user -- a_nav
 

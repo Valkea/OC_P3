@@ -1,61 +1,63 @@
 @startuml
+!include 01-actors.txt
 left to right direction
-
-
-:Utilisateur du site: as user #Yellow
-:Enfant en difficulté scolaire: as student
-:Tuteur bénévole: as mentor
-
-:Équipe Dev4U: as tech #Cyan
-:Équipe Learn@Home: as owner #Cyan
-
-
-student -[#AAA]-^ user
-mentor -[#AAA]-^ user
-owner -[#AAA]-^ user
+'top to bottom direction
 
 
 rectangle "Calendrier" as g_calendar {
-	usecase "Voir ses rendez-vous" as a_rdv
-	usecase "Ajouter un rendez-vous" as a_rdv_add_self
+	usecase "Voir les rendez-vous" as a_rdv_see
+		usecase "Voir les détails d'un RDV" as a_view_details #Orange
+		usecase "Voir mes RDV" as a_view_self #Orange
+		usecase "Voir les RDV de mes étudiants" as a_view_students #Orange
+		usecase "Voir les RDV de mes tuteurs" as a_view_all #Cyan
 
-	usecase "Editer un RDV" as a_rdv_edit #Yellow
-	usecase "Voir tous les RDV" as a_view_all #Cyan
-	usecase "Voir les détails d'un RDV" as a_view_details #Yellow
-	usecase "Ceux des étudiants suivis" as a_view_students #Yellow
-	usecase "Les siens" as a_view_self #Yellow
+	usecase "Ajouter des rendez-vous" as a_rdv_add
+		usecase "Saisir un RDV" as a_rdv_add_input #Orange
+		usecase "Sélectionner un élève \nà joindre au RDV" as a_rdv_add_target_s #Orange
+		usecase "Sélectionner un tuteur \nà joindre au RDV" as a_rdv_add_target_t #Orange
+		
+	usecase "Editer des rendez-vous" as a_rdv_edit #Orange
+		usecase "Saisir les nouvelles données" as a_rdv_edit_input #Orange
+		
+	usecase "Supprimer des rendez-vous" as a_rdv_del #Orange
+		usecase "Sélectionner le RDV" as a_rdv_del_select #Orange
 
-	usecase "Enregistrer les détails du RDV" as a_input_details #Yellow
-	usecase "Choisir une date" as a_select_date #Yellow
-	usecase "Sélectionner un tuteur" as a_select_mentor #Yellow
-	usecase "Sélectionner un étudiant" as a_select_student #Yellow
+	usecase "Solliciter un rendez-vous" as a_rdv_ask #Orange
+		usecase "Saisir la demande" as a_rdv_ask_input #Orange
+
+	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "S'authentifier" as a_auth #Yellow
+usecase "Je suis authentifié" as a_auth #Yellow
 a_auth <|. g_calendar : "\n<<include>>        \n"
 
-'######
+user -- a_rdv_see
+user -- a_rdv_add
+user -- a_rdv_edit
+user -- a_rdv_del
+student -- a_rdv_ask
+user -- a_nav
 
-a_rdv_add_self <|.. a_select_mentor : "<<extend>>\nEXT: si acteur != Tuteur"
-a_rdv_add_self <|.. a_select_student : "<<extend>>\nEXT: si acteur != Etudiant"
-a_rdv_add_self ..|> a_select_date : "\n<<include>>"
-a_rdv_add_self ..|> a_input_details : "\n<<include>>"
+'a_rdv_see ^-- a_view_students : "<<eclu>>"
+'a_rdv_see ^-- a_view_self : "<<generalisation>>"
+'a_rdv_see ^-- a_view_all : "<<generalisation>>\nsi acteur == Learn@Home"
 
-'######
+a_rdv_see ..^ a_view_details : "<<include>>"
+a_rdv_see ..^ a_view_self : "<<include>>"
+a_rdv_see ^.. a_view_all : "<<extends>>\nEXT: si acteur == Learn@Home"
+a_rdv_see ^.. a_view_students : "<<extends>>\nEXT: si acteur != student"
+'a_rdv_see ..^ a_rdv_edit : "<<include>>"
 
-a_rdv ..|> a_view_details : "<<include>>"
-a_rdv ..|> a_view_self : "<<include>>"
-a_rdv <|.. a_view_all : "\n<<extends>>\nEXT: si acteur == Learn@Home"
-a_rdv <|.. a_view_students : "<<extends>>\nEXT: si acteur == Tuteur"
-a_rdv ..|> a_rdv_edit : "\n<<include>>"
+a_rdv_add ..^ a_rdv_add_input : "<<include>>"
+a_rdv_add ^.. a_rdv_add_target_s : "<<extends>>\nEXT: si acteur != Etudiant"
+a_rdv_add ^.. a_rdv_add_target_t : "<<extends>>\nEXT: si acteur == Learn@Home"
 
-'######
+a_rdv_del ..^ a_rdv_del_select: "<<include>>"
+a_rdv_del_select .^ a_rdv_see: "<<include>>"
 
-user -- a_rdv
-user -- a_rdv_add_self
+a_rdv_edit ..^ a_rdv_del_select: "<<include>>"
+a_rdv_edit ..^ a_rdv_edit_input: "<<include>>"
 
-'######
-
-tech -- g_calendar
+a_rdv_ask ..^ a_rdv_ask_input : "<<include>>"
 
 @enduml

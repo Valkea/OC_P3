@@ -2,19 +2,29 @@
 !include 01-actors.txt
 left to right direction
 
-TODO
+rectangle "Gestionnaire de profil" as group {
+	usecase "Editer mes informations" as a_edit_txt
+		usecase "Saisir mes informations" as a_input #Orange
 
-rectangle "Gestionnaire de tâches" as group {
-	usecase "Voir les tâches" as a_task_view
-	usecase "Ajouter des tâches" as a_task_add
+	usecase "Changer ma photo" as a_edit_photo
+		usecase "Uploader une photo" as a_upload #Orange
+
+	usecase "Clore mon compte" as a_edit_remove
+		usecase "Confirmer ma demande" as a_confirm #Orange
+
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "S'authentifier" as a_auth #Yellow
+usecase "Je suis authentifié" as a_auth #Yellow
 a_auth <|. group : "\n<<include>>        \n"
 
-user -- a_task_view
-user -- a_task_add
+user -- a_edit_txt
+user -- a_edit_photo
+user -- a_edit_remove
 user -- a_nav
+
+a_edit_txt ..^ a_input : "<<include>>"
+a_edit_photo ..^ a_upload : "<<include>>"
+a_edit_remove ..^ a_confirm : "<<include>>"
 
 @enduml
