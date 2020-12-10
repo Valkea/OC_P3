@@ -5,6 +5,7 @@ left to right direction
 
 rectangle "Learn@Home" as g_system {
 	usecase "M'informer sur Learn@Home" as a_home #Orange
+	usecase "Contacter Learn@Home" as a_contact #Orange
 	usecase "M'identifier" as a_auth
 	usecase "Gérer mon profil" as a_profil #Orange
 	usecase "Voir un récaputilatif \nde mon activité" as a_dash
@@ -17,6 +18,7 @@ rectangle "Learn@Home" as g_system {
 
 
 user -- a_home
+user -- a_contact
 user -- a_auth
 user -- a_profil
 user -- a_dash

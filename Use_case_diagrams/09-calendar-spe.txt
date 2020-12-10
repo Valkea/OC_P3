@@ -8,8 +8,8 @@ rectangle "Calendrier" as g_calendar {
 	usecase "Voir les rendez-vous" as a_rdv_see
 		usecase "Voir les détails d'un RDV" as a_view_details #Orange
 		usecase "Voir mes RDV" as a_view_self #Orange
-		usecase "Voir les RDV de mes étudiants" as a_view_students #Orange
-		usecase "Voir les RDV de mes tuteurs" as a_view_all #Cyan
+	'	usecase "Voir les RDV de mes étudiants" as a_view_students #Orange
+	'	usecase "Voir les RDV de mes tuteurs" as a_view_all #Cyan
 
 	usecase "Ajouter des rendez-vous" as a_rdv_add
 		usecase "Saisir un RDV" as a_rdv_add_input #Orange
@@ -22,8 +22,11 @@ rectangle "Calendrier" as g_calendar {
 	usecase "Supprimer des rendez-vous" as a_rdv_del #Orange
 		usecase "Sélectionner le RDV" as a_rdv_del_select #Orange
 
-	usecase "Solliciter un rendez-vous" as a_rdv_ask #Orange
+	'usecase "Répondre à une proposition\n de rendez-vous" as a_rdv_prop #Orange
+
+	usecase "Solliciter un \nrendez-vous anticipé" as a_rdv_ask #Orange
 		usecase "Saisir la demande" as a_rdv_ask_input #Orange
+		usecase "Envoyer un message \nurgent au tuteur" as a_rdv_ask_send #Orange
 
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
@@ -37,16 +40,15 @@ user -- a_rdv_edit
 user -- a_rdv_del
 student -- a_rdv_ask
 user -- a_nav
+'user -- a_rdv_prop
 
-'a_rdv_see ^-- a_view_students : "<<eclu>>"
-'a_rdv_see ^-- a_view_self : "<<generalisation>>"
-'a_rdv_see ^-- a_view_all : "<<generalisation>>\nsi acteur == Learn@Home"
+'a_rdv_prop ..^ a_view_details : "<<include>>"
+'a_rdv_prop ..^ a_rdv_del_select : "<<include>>"
 
 a_rdv_see ..^ a_view_details : "<<include>>"
 a_rdv_see ..^ a_view_self : "<<include>>"
-a_rdv_see ^.. a_view_all : "<<extends>>\nEXT: si acteur == Learn@Home"
-a_rdv_see ^.. a_view_students : "<<extends>>\nEXT: si acteur != student"
-'a_rdv_see ..^ a_rdv_edit : "<<include>>"
+'a_rdv_see ^.. a_view_all : "<<extends>>\nEXT: si acteur == Learn@Home"
+'a_rdv_see ^.. a_view_students : "<<extends>>\nEXT: si acteur != student"
 
 a_rdv_add ..^ a_rdv_add_input : "<<include>>"
 a_rdv_add ^.. a_rdv_add_target_s : "<<extends>>\nEXT: si acteur != Etudiant"
@@ -59,5 +61,6 @@ a_rdv_edit ..^ a_rdv_del_select: "<<include>>"
 a_rdv_edit ..^ a_rdv_edit_input: "<<include>>"
 
 a_rdv_ask ..^ a_rdv_ask_input : "<<include>>"
+a_rdv_ask ..^ a_rdv_ask_send : "<<include>>"
 
 @enduml

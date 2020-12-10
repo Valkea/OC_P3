@@ -1,0 +1,17 @@
+@startuml
+!include 01-actors.txt
+left to right direction
+
+rectangle "Contact" as group {
+	usecase "Remplir le formulaire de contact" as a_email #Orange
+	usecase "Voir le numéro de téléphone" as a_phone #Orange
+	usecase "Voir l'adresse" as a_address #Orange
+	usecase "Utiliser le menu principal" as a_nav #Orange	
+}
+
+user -- a_email
+user -- a_phone
+user -- a_address
+user -- a_nav
+
+@enduml
