@@ -5,9 +5,7 @@ left to right direction
 
 rectangle "Tableau de bord" as group {
 	usecase "Voir un récaputilatif de \nl'activité de mon compte" as a_recap
-	usecase "Utiliser le menu principal" as a_nav #Orange
-	
-	usecase "Publier des communiqués \npour tous les utilisateurs" as a_write_infos #Orange
+	usecase "Utiliser le menu principal" as a_nav #Orange	
 }
 
 usecase "S'authentifier" as a_auth #Yellow

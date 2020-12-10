@@ -3,7 +3,7 @@
 left to right direction
 
 
-rectangle "Gestion de l'authentification" as g_auth {
+rectangle "Authentification" as g_auth {
 	usecase "M'inscrire" as a_signup
 	usecase "M'identifier" as a_signin
 	usecase "Récupérer mon\nmot de passe" as a_pwd

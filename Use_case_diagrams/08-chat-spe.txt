@@ -1,4 +1,102 @@
 @startuml
+!include 01-actors.txt
+left to right direction
+
+rectangle "Système de discussion instantanée" as group {
+
+	usecase "Lire les messages" as a_chat_read
+		usecase "Selectionner un correspondant" as a_read_target #Orange
+		usecase "Afficher les anciens messages" as a_has_new_msg #Orange
+		usecase "Afficher les nouveaux messages" as a_has_old_msg #Orange
+		usecase "Afficher les pièces jointes" as a_has_file_msg #Orange
+		
+	usecase "Envoyer des messages" as a_chat_send
+		usecase "Saisir un message" as a_chat_send_write #Orange
+		usecase "Joindre un fichier" as a_chat_send_files #Orange
+
+	usecase "Gérer mes contacts" as a_chat_contact
+		usecase "Chercher un contact" as a_contact_search #Orange
+			usecase "Ajouter un contact" as a_contact_add #Orange
+		usecase "Afficher mes contact" as a_contact_list #Orange
+			usecase "Supprimer un contact" as a_contact_del #Orange
+
+	usecase "Utiliser le menu principal" as a_nav #Orange
+}
+
+usecase "S'authentifier" as a_auth #Yellow
+a_auth <|. group : "\n<<include>>        \n"
+
+user -- a_chat_read
+user -- a_chat_send
+user -- a_chat_contact
+
+a_chat_read ^.. a_has_old_msg : "<<extends>>\nEXT: si old msg > 0"
+a_chat_read ^.. a_has_new_msg : "<<extends>>\nEXT: si new msg > 0"
+a_chat_read ^.. a_has_file_msg : "<<extends>>\nEXT: si pièces-jointes > 0"
+a_chat_read ..^ a_read_target : "<<include>>"
+
+a_chat_send ..^ a_read_target : "<<include>>"
+a_chat_send ..^ a_chat_send_write : "<<include>>"
+a_chat_send ^.. a_chat_send_files : "<<extends>>\nEXT: si pièces-jointes > 0"
+
+a_chat_contact ..^ a_contact_list : "<<include>>"
+a_contact_search ..^ a_contact_add : "<<include>>"
+a_contact_list ..^ a_contact_del : "<<include>>"
+a_chat_contact ..^ a_contact_search : "<<include>>"
+
+user -- a_nav
+
+/'
+!include 01-actors.txt
+left to right direction
+
+rectangle "Système de discussion instantanée" as group {
+
+	usecase "Lire les messages" as a_chat_read
+		usecase "Afficher les pièces jointes" as a_read_files #Orange
+		usecase "Afficher l'heure des messages" as a_read_time #Orange
+		usecase "Afficher les nouveaux messages" as a_read_new #Orange
+		usecase "Afficher les anciens messages" as a_read_old #Orange
+		usecase "Selectionner un correspondant" as a_read_target #Orange
+		
+	usecase "Envoyer des messages" as a_chat_send
+		usecase "Rédiger un message" as a_chat_send_write #Orange
+		usecase "Pouvoir joindre un fichier" as a_chat_send_files #Orange
+
+	usecase "Gérer mes contacts" as a_chat_contact
+		usecase "Chercher un contact" as a_contact_search #Orange
+		usecase "Ajouter un contact" as a_contact_add #Orange
+		usecase "Supprimer un contact" as a_contact_del #Orange
+
+	usecase "Utiliser le menu principal" as a_nav #Orange
+}
+
+usecase "S'authentifier" as a_auth #Yellow
+a_auth <|. group : "\n<<include>>        \n"
+
+user -- a_chat_read
+user -- a_chat_send
+user -- a_chat_contact
+
+a_chat_read ..^ a_read_old : "<<include>>"
+a_chat_read ..^ a_read_new : "<<include>>"
+a_chat_read ..^ a_read_time : "<<include>>"
+a_chat_read ..^ a_read_files : "<<include>>"
+a_chat_read ..^ a_read_target : "<<include>>"
+
+a_chat_send ..^ a_read_target : "<<include>>"
+a_chat_send ..^ a_chat_send_write : "<<include>>"
+a_chat_send ..^ a_chat_send_files : "<<include>>"
+
+a_chat_contact ..^ a_contact_add : "<<include>>"
+a_chat_contact ..^ a_contact_del : "<<include>>"
+a_chat_contact ..^ a_contact_search : "<<include>>"
+
+user -- a_nav
+
+
+
+/'
 left to right direction
 
 
@@ -83,5 +181,5 @@ user -- a_manage_contacts
 '######
 
 tech -- g_chat
-
+'/
 @enduml

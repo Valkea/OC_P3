@@ -3,22 +3,27 @@
 left to right direction
 
 
-rectangle "Tableau de bord" as g_dashboard {
-	usecase "Voir si j'ai des msg en attente" as a_new_chat
-	usecase "Voir un récapitulatif de mes tâches" as a_new_todo
-	usecase "Voir mes prochains rendez-vous" as a_new_cal
-	usecase "Voir les communiqués du site" as a_new_infos #Orange
-	usecase "Me déconnecter" as a_disconnect #Orange
+rectangle "Tableau de bord" as group {
+
+	usecase "Voir un récaputilatif de \nl'activité de mon compte" as a_recap
+		usecase "Voir les communiqués \ndes admins Learn@Home" as a_new_infos #Orange
+		usecase "Voir un récapitulatif de mes tâches" as a_new_todo
+		usecase "Voir mes prochains rendez-vous" as a_new_cal
+		usecase "Voir si j'ai des messages en attente" as a_new_chat
+
+	usecase "Utiliser le menu principal" as a_nav #Orange
 	
-	usecase "Publier des communiqués \npour tous les utilisateurs" as a_write_infos #Orange
 }
 
+usecase "S'authentifier" as a_auth #Yellow
+a_auth <|. group : "\n<<include>>        \n"
 
-user -- a_new_infos
-user -- a_new_chat
-user -- a_new_todo
-user -- a_new_cal
-user -- a_disconnect
-owner -- a_write_infos
+a_recap ..^ a_new_infos : "<<include>>"
+a_recap ..^ a_new_chat : "<<include>>"
+a_recap ..^ a_new_todo : "<<include>>"
+a_recap ..^ a_new_cal : "<<include>>"
+
+user -- a_recap
+user -- a_nav
 
 @enduml

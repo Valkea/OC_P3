@@ -5,7 +5,7 @@ left to right direction
 
 rectangle "Système de discussion instantanée" as group {
 
-	usecase "Voir les messages" as a_chat
+	usecase "Lire les messages" as a_chat
 	usecase "Envoyer des messages" as a_chat_send
 	usecase "Gérer mes contacts" as a_chat_contact
 	usecase "Utiliser le menu principal" as a_nav #Orange

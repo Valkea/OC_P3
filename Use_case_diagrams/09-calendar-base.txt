@@ -6,7 +6,7 @@ left to right direction
 rectangle "Calendrier" as g_calendar {
 	usecase "Voir les rendez-vous" as a_rdv_see
 	usecase "Ajouter un rendez-vous" as a_rdv_add
-	usecase "Soliciter un rendez-vous" as a_rdv_ask #Orange
+	usecase "Solliciter un rendez-vous" as a_rdv_ask #Orange
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
