@@ -31,24 +31,15 @@ rectangle "Calendrier" as g_calendar {
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "Je suis authentifié" as a_auth #Yellow
-a_auth <|. g_calendar : "\n<<include>>        \n"
-
 user -- a_rdv_see
 user -- a_rdv_add
 user -- a_rdv_edit
 user -- a_rdv_del
 student -- a_rdv_ask
 user -- a_nav
-'user -- a_rdv_prop
-
-'a_rdv_prop ..^ a_view_details : "<<include>>"
-'a_rdv_prop ..^ a_rdv_del_select : "<<include>>"
 
 a_rdv_see ..^ a_view_details : "<<include>>"
 a_rdv_see ..^ a_view_self : "<<include>>"
-'a_rdv_see ^.. a_view_all : "<<extends>>\nEXT: si acteur == Learn@Home"
-'a_rdv_see ^.. a_view_students : "<<extends>>\nEXT: si acteur != student"
 
 a_rdv_add ..^ a_rdv_add_input : "<<include>>"
 a_rdv_add ^.. a_rdv_add_target_s : "<<extends>>\nEXT: si acteur != Etudiant"
@@ -62,5 +53,7 @@ a_rdv_edit ..^ a_rdv_edit_input: "<<include>>"
 
 a_rdv_ask ..^ a_rdv_ask_input : "<<include>>"
 a_rdv_ask ..^ a_rdv_ask_send : "<<include>>"
+
+note top of user : PRÉCONDITION\n..\nJe suis authentifié
 
 @enduml

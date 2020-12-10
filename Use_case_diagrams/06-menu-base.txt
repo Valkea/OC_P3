@@ -14,9 +14,6 @@ rectangle "Menu principal" as group {
 	usecase "Me déconnecter" as a_logout #Orange
 }
 
-usecase "Je suis authentifié" as a_auth #Yellow
-a_auth .^ group : "\n<<exclude>> EXT: si page != acceuil        \n"
-
 user -- a_menu_home
 user -- a_menu_dash
 user -- a_menu_profil

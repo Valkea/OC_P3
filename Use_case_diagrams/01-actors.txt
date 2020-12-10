@@ -8,7 +8,7 @@ left to right direction
 
 :Utilisateur du site: as user #Yellow
 
-parent -[#BBB]-^ student
+parent -[#BBB]^ student
 student -[#BBB]--^ user
 mentor -[#BBB]--^ user
 owner -[#BBB]--^ user

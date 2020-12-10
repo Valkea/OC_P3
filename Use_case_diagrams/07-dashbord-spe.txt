@@ -2,8 +2,8 @@
 !include 01-actors.txt
 left to right direction
 
-
 rectangle "Tableau de bord" as group {
+
 
 	usecase "Voir un récaputilatif de \nl'activité de mon compte" as a_recap
 		usecase "Voir les communiqués \ndes admins Learn@Home" as a_new_infos #Orange
@@ -11,12 +11,14 @@ rectangle "Tableau de bord" as group {
 		usecase "Voir mes prochains rendez-vous" as a_new_cal
 		usecase "Voir si j'ai des messages en attente" as a_new_chat
 
+
+	'usecase "PRÉCONDITION\n..\nJe suis authentifié" as a_auth #Yellow
+	'note "PRÉCONDITION\n..\nJe suis authentifié" as a_auth
 	usecase "Utiliser le menu principal" as a_nav #Orange
-	
 }
 
-usecase "Je suis authentifié" as a_auth #Yellow
-a_auth <|. group : "\n<<include>>        \n"
+
+'a_auth <|. group : "\n<<include>>        \n"
 
 a_recap ..^ a_new_infos : "<<include>>"
 a_recap ..^ a_new_chat : "<<include>>"
@@ -25,5 +27,12 @@ a_recap ..^ a_new_cal : "<<include>>"
 
 user -- a_recap
 user -- a_nav
+
+'user -- a_auth
+'a_auth -- a_recap
+'a_auth -- a_nav
+
+note right of user : PRÉCONDITION\n..\nJe suis authentifié
+
 
 @enduml

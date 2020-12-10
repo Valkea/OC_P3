@@ -1,7 +1,7 @@
 @startuml
 !include 01-actors.txt
 left to right direction
-top to bottom direction
+'top to bottom direction
 
 rectangle "Gestionnaire de tâches" as group {
 	usecase "Voir les tâches" as a_todo_view
@@ -23,9 +23,6 @@ rectangle "Gestionnaire de tâches" as group {
 	usecase "Supprimer des tâches" as a_todo_del #Orange
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
-
-usecase "Je suis authentifié" as a_auth #Yellow
-a_auth <|. group : "\n<<include>>        \n"
 
 user -- a_todo_view
 user -- a_todo_add
@@ -49,65 +46,6 @@ a_todo_select .^ a_todo_view : "<<include>>"
 
 a_todo_edit .^ a_edit_input : "<<include>>"
 
-/'
-left to right direction
+note top of user : PRÉCONDITION\n..\nJe suis authentifié
 
-
-:Utilisateur du site: as user #Yellow
-:Enfant en difficulté scolaire: as student
-:Tuteur bénévole: as mentor
-
-:Équipe Dev4U: as tech #Cyan
-:Équipe Learn@Home: as owner #Cyan
-
-
-student -[#AAA]-^ user
-mentor -[#AAA]-^ user
-owner -[#AAA]-^ user
-
-
-rectangle "Gestionnaire de tâches" as g_taskmanager {
-	usecase "Voir les tâches" as a_task
-	usecase "Ajouter une tâche" as a_task_add_self
-
-	usecase "Organiser les tâches" as a_task_organize #Yellow
-	usecase "Editer une tâche" as a_task_edit #Yellow
-	usecase "Toutes les tâches" as a_view_all #Cyan
-	usecase "Celles des étudiants suivis" as a_view_students #Yellow
-	usecase "Les siennes" as a_view_self #Yellow
-	usecase "Voir les détails d'une tâche" as a_view_details #Yellow
-
-	usecase "Sélectionner un tuteur" as a_select_mentor #Cyan
-	usecase "Enregistrer les détails d'une tâche" as a_input_details #Yellow
-	usecase "Sélectionner un étudiant" as a_select_student #Yellow
-}
-
-usecase "S'authentifier" as a_auth #Yellow
-a_auth <|. g_taskmanager : "\n<<include>>        \n"
-
-'######
-
-a_task_add_self <|.. a_select_mentor : "\n<<extend>>\nEXT: si acteur == Learn@Home"
-a_task_add_self <|.. a_select_student : "<<extend>>\nEXT: si acteur != Etudiant"
-a_task_add_self ..|> a_input_details : "\n<<include>>"
-
-'######
-
-a_task ..|> a_view_details : "<<include>>"
-a_task ..|> a_view_self : "<<include>>"
-a_task <|.. a_view_all : "\n<<extends>>\nEXT: si acteur == Learn@Home"
-a_task <|.. a_view_students : "<<extends>>\nEXT: si acteur == Tuteur"
-a_task ..|> a_task_edit : "\n<<include>>"
-a_task ..|> a_task_organize : "\n<<include>>"
-
-
-'######
-
-user -- a_task
-user -- a_task_add_self
-
-'######
-
-tech -- g_taskmanager
-'/
 @enduml

@@ -11,14 +11,13 @@ rectangle "Gestionnaire de tâches" as group {
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "Je suis authentifié" as a_auth #Yellow
-a_auth <|. group : "\n<<include>>        \n"
-
 user -- a_todo_view
 user -- a_todo_add
 user -- a_todo_ok
 user -- a_todo_edit
 user -- a_todo_del
 user -- a_nav
+
+note right of user : PRÉCONDITION\n..\nJe suis authentifié
 
 @enduml

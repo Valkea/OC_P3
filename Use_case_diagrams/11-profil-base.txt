@@ -9,12 +9,11 @@ rectangle "Gestionnaire de profil" as group {
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "Je suis authentifié" as a_auth #Yellow
-a_auth <|. group : "\n<<include>>        \n"
-
 user -- a_edit_txt
 user -- a_edit_photo
 user -- a_edit_remove
 user -- a_nav
+
+note right of user : PRÉCONDITION\n..\nJe suis authentifié
 
 @enduml

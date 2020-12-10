@@ -11,13 +11,12 @@ rectangle "Système de discussion instantanée" as group {
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
-usecase "Je suis authentifié" as a_auth #Yellow
-a_auth <|. group : "\n<<include>>        \n"
-
 user -- a_chat
 user -- a_chat_send
 user -- a_chat_contact
 
 user -- a_nav
+
+note right of user : PRÉCONDITION\n..\nJe suis authentifié
 
 @enduml
