@@ -5,54 +5,68 @@ left to right direction
 
 
 rectangle "Calendrier" as g_calendar {
-	usecase "Voir les rendez-vous" as a_rdv_see
-		usecase "Voir les détails d'un RDV" as a_view_details #Orange
-		usecase "Voir mes RDV" as a_view_self #Orange
-	'	usecase "Voir les RDV de mes étudiants" as a_view_students #Orange
-	'	usecase "Voir les RDV de mes tuteurs" as a_view_all #Cyan
 
-	usecase "Ajouter des rendez-vous" as a_rdv_add
-		usecase "Saisir un RDV" as a_rdv_add_input #Orange
-		usecase "Sélectionner un élève \nà joindre au RDV" as a_rdv_add_target_s #Orange
-		usecase "Sélectionner un tuteur \nà joindre au RDV" as a_rdv_add_target_t #Orange
+	usecase "Solliciter un \nRDV anticipé" as a_rdv_ask #Orange
+		usecase "Saisir \nla demande" as a_rdv_ask_input #Orange
+		usecase "Envoyer un \nmessage urgent \nau tuteur" as a_rdv_ask_send #Orange
+
+	usecase "Voir la liste \nde mes RDV" as a_rdv_see
+		usecase "Voir tous les \nRDV du site" as a_rdv_see_all #Cyan
+
+
+	usecase "Supprimer \ndes RDV" as a_rdv_del #Orange
+
+	usecase "Voir les détails \nd'un RDV" as a_view_details #Orange
+		usecase "Sélectionner \nle RDV" as a_rdv_select #Orange
+
+	usecase "Ajouter \ndes RDV" as a_rdv_add #Orange
+		usecase "Saisir les \ndétails du RDV" as a_rdv_add_input #Orange
+		usecase "Sélectionner \nun élève à \njoindre au RDV" as a_rdv_add_target_s #Orange
+		usecase "Sélectionner \nun tuteur à \njoindre au RDV" as a_rdv_add_target_t #Orange
+			usecase "Sélectionner \nun contact" as a_select_contact #White
 		
-	usecase "Editer des rendez-vous" as a_rdv_edit #Orange
-		usecase "Saisir les nouvelles données" as a_rdv_edit_input #Orange
+	usecase "Editer \ndes RDV" as a_rdv_edit #Orange
+		usecase "Saisir les \nnouvelles \ndonnées" as a_rdv_edit_input #Orange
 		
-	usecase "Supprimer des rendez-vous" as a_rdv_del #Orange
-		usecase "Sélectionner le RDV" as a_rdv_del_select #Orange
 
-	'usecase "Répondre à une proposition\n de rendez-vous" as a_rdv_prop #Orange
-
-	usecase "Solliciter un \nrendez-vous anticipé" as a_rdv_ask #Orange
-		usecase "Saisir la demande" as a_rdv_ask_input #Orange
-		usecase "Envoyer un message \nurgent au tuteur" as a_rdv_ask_send #Orange
-
-	usecase "Utiliser le menu principal" as a_nav #Orange
+	usecase "Déplacer \ndes RDV" as a_rdv_move #Orange
 }
+
+rectangle "Système de navigation" as group3 {
+	usecase "Pouvoir accèder \nau menu principal" as a_nav #Orange
+}
+
+'skinparam linetype ortho
+'skinparam linetype polyline
 
 user -- a_rdv_see
 user -- a_rdv_add
 user -- a_rdv_edit
 user -- a_rdv_del
-student -- a_rdv_ask
+user -- a_view_details
 user -- a_nav
+student -- a_rdv_ask
 
-a_rdv_see ..^ a_view_details : "<<include>>"
-a_rdv_see ..^ a_view_self : "<<include>>"
+a_view_details ..^ a_rdv_select : "<<include>>"
+
+a_rdv_move -^ a_rdv_edit
 
 a_rdv_add ..^ a_rdv_add_input : "<<include>>"
 a_rdv_add ^.. a_rdv_add_target_s : "<<extends>>\nEXT: si acteur != Etudiant"
 a_rdv_add ^.. a_rdv_add_target_t : "<<extends>>\nEXT: si acteur == Learn@Home"
+a_rdv_add_target_s ..^ a_select_contact : "<<include>>"
+a_rdv_add_target_t ..^ a_select_contact : "<<include>>"
 
-a_rdv_del ..^ a_rdv_del_select: "<<include>>"
-a_rdv_del_select .^ a_rdv_see: "<<include>>"
+a_rdv_del ..^ a_rdv_select: "<<include>>"
+a_rdv_select .^ a_rdv_see: "<<include>>"
 
-a_rdv_edit ..^ a_rdv_del_select: "<<include>>"
-a_rdv_edit ..^ a_rdv_edit_input: "<<include>>"
+a_rdv_edit ..^ a_rdv_select: "<<include>>"
+a_rdv_edit ^.. a_rdv_edit_input: "<<extends>>\nEXT: si action != drag&drop"
 
 a_rdv_ask ..^ a_rdv_ask_input : "<<include>>"
 a_rdv_ask ..^ a_rdv_ask_send : "<<include>>"
+
+a_rdv_see ^.. a_rdv_see_all : "<<extends>>\nEXT: si acteur == Learn@Home"
 
 note top of user : PRÉCONDITION\n..\nJe suis authentifié
 
