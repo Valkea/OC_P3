@@ -2,48 +2,91 @@
 !include 01-actors.txt
 left to right direction
 
-rectangle "Système de discussion instantanée" as group {
+rectangle "Système de discussion instantanée" as group2 {
 
-	usecase "Lire les messages" as a_chat_read
-		usecase "Selectionner un correspondant" as a_read_target #Orange
-		usecase "Afficher les anciens messages" as a_has_new_msg #Orange
-		usecase "Afficher les nouveaux messages" as a_has_old_msg #Orange
-		usecase "Afficher les pièces jointes" as a_has_file_msg #Orange
-		
-	usecase "Envoyer des messages" as a_chat_send
-		usecase "Saisir un message" as a_chat_send_write #Orange
-		usecase "Joindre un fichier" as a_chat_send_files #Orange
 
-	usecase "Gérer mes contacts" as a_chat_contact
-		usecase "Ajouter un contact" as a_contact_add #Orange
-			usecase "Chercher un contact" as a_contact_search #Orange
-		usecase "Afficher mes contact" as a_contact_list #Orange
-			usecase "Supprimer un contact" as a_contact_del #Orange
 
-	usecase "Utiliser le menu principal" as a_nav #Orange
+
+	usecase "Lire les messages" as a_read
+		usecase "Sélectionner \nune chat-room" as a_tab_get #Orange
+
+			usecase "Voir le nom du \ncorrespondant" as a_msg_author
+			usecase "Créer une chat-room \ncommune" as a_tab_add #Orange
+			usecase "Voir la photo \ndu correspondant" as a_has_photo
+
+		usecase "Voir les \nanciens messages" as a_has_new_msg
+		usecase "Voir les \nnouveaux messages" as a_has_old_msg
+			usecase "Voir les détails \ndes messages" as a_msg_details #Orange
+				usecase "Voir les horodatages" as a_msg_time
+				usecase "Voir les \npièces jointes" as a_has_file_msg #Orange
+				usecase "Voir l'état de lecture \nde mes messages" as a_msg_read_mine
+				usecase "Marquer les messages\n vus comme lus" as a_msg_read_others
+
+	usecase "Envoyer des messages" as a_write
+		usecase "Joindre des fichiers" as a_send_files #Orange
+		usecase "Saisir un message" as a_send_write 
+
+	usecase "Envoyer des fichiers" as a_files
 }
 
-user -- a_chat_read
-user -- a_chat_send
-user -- a_chat_contact
+rectangle "Système de gestion des contacts" as group {
 
-a_chat_read ^.. a_has_old_msg : "<<extends>>\nEXT: si old msg > 0"
-a_chat_read ^.. a_has_new_msg : "<<extends>>\nEXT: si new msg > 0"
-a_chat_read ^.. a_has_file_msg : "<<extends>>\nEXT: si pièces-jointes > 0"
-a_chat_read ..^ a_read_target : "<<include>>"
+	usecase "Gérer mes contacts" as a_contact
+		usecase "Ajouter un contact" as a_contact_add
+		usecase "Supprimer un contact" as a_contact_del
+			usecase "Chercher un contact" as a_contact_search #Orange
+				usecase "Saisir les infos" as a_contact_input #Orange
 
-a_chat_send ..^ a_read_target : "<<include>>"
-a_chat_send ..^ a_chat_send_write : "<<include>>"
-a_chat_send ^.. a_chat_send_files : "<<extends>>\nEXT: si pièces-jointes > 0"
+		usecase "Sélectionner un contact" as a_contact_select #Orange
+			usecase "Afficher mes contacts" as a_contact_list #Orange
+				usecase "Afficher tous les \ncontacts du site" as a_contact_list_all #Cyan
 
-a_chat_contact ..^ a_contact_list : "<<include>>"
-a_contact_add .^ a_contact_search : "<<include>>"
-a_contact_list ^. a_contact_del : "<<include>>"
-a_chat_contact ..^ a_contact_add : "<<include>>"
-a_chat_contact ..^ a_contact_del : "<<include>>"
+}
+
+
+rectangle "Système de navigation" as group3 {
+	usecase "Pouvoir accèder \nau menu principal" as a_nav #Orange
+}
+
+user -- a_read
+user -- a_write
+user -- a_contact
+
+a_contact ..^ a_contact_add : "<<include>>"
+a_contact_add ..^ a_contact_search : "<<include>>"
+a_contact_search ..^ a_contact_input : "<<include>>"
+a_contact ..^ a_contact_del : "<<include>>"
+a_contact_del ..^ a_contact_select : "<<include>>"
+
+a_write ..^ a_send_write : "<<include>>"
+a_write ^.. a_send_files : "<<extends>>\nEXT: si pièces-jointes > 0"
+a_write ..^ a_tab_get : "<<include>>"
+
+'a_files ..^ a_send_files : "<<includes>>"
+a_files -^ a_write
+
+a_tab_get ..^ a_contact_select : "<<include>>"
+a_tab_get ^.. a_tab_add : "<<extends>>\nEXT: si elle n'existe pas"
+
+a_read ..^ a_tab_get : "<<include>>"
+a_read ^.. a_has_old_msg : "<<extends>>\nEXT: si old msg > 0"
+a_read ^.. a_has_new_msg : "<<extends>>\nEXT: si new msg > 0"
+
+a_has_old_msg ..^ a_msg_details : "<<include>>"
+a_has_new_msg ..^ a_msg_details : "<<include>>"
+
+a_msg_details ..^ a_msg_time : "<<include>>"
+a_msg_details ..^ a_msg_read_mine : "<<include>>"
+a_msg_details ^.. a_has_file_msg : "<<extends>>\nEXT: si pièces-jointes > 0"
+a_msg_details ..^ a_msg_read_others : "<<include>>"
+a_msg_details ^.. a_has_photo : "<<extends>>\nEXT: si photo existante"
+a_msg_details ..^ a_msg_author : "<<include>>"
+
+a_contact_select ..^ a_contact_list : "<<include>>"
+a_contact_select ^.. a_contact_list_all : "<<extends>>\nEXT: si acteur == Learn@Home"
 
 user -- a_nav
 
-note right of user : PRÉCONDITION\n..\nJe suis authentifié
+note top of user : PRÉCONDITION\n..\nJe suis authentifié
 
 @enduml

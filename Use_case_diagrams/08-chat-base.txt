@@ -7,12 +7,14 @@ rectangle "Système de discussion instantanée" as group {
 
 	usecase "Lire les messages" as a_chat
 	usecase "Envoyer des messages" as a_chat_send
+	usecase "Envoyer des fichiers" as a_files
 	usecase "Gérer mes contacts" as a_chat_contact
 	usecase "Utiliser le menu principal" as a_nav #Orange
 }
 
 user -- a_chat
 user -- a_chat_send
+user -- a_files
 user -- a_chat_contact
 
 user -- a_nav
