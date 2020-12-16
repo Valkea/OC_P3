@@ -4,18 +4,18 @@
 left to right direction
 
 
-rectangle "Authentification" as g_auth {
+rectangle "Système d'authentification" as g_auth {
 	usecase "M'inscrire" as a_signup
-		usecase "Selectionner le bon groupe\nÉtudiant / Tuteur / Staff" as a_select #Orange
-		usecase "Saisir mes informations \npersonnelles" as a_info_input #Orange
+		usecase "Selectionner \nle bon groupe\nÉtudiant / Tuteur / Staff" as a_select #Orange
+		usecase "Saisir mes infos \npersonnelles" as a_info_input #Orange
 
 	usecase "M'identifier" as a_signin
 		usecase "Saisir mon login & pass" as a_signin_input #Orange
 
 
 	usecase "Récupérer mon\nmot de passe" as a_recover
-		usecase "Clicker sur l'email de confirmation" as a_recover_email #Orange
-		usecase "Donner les infos demandées" as a_recover_input #Orange
+		usecase "Suivre les instructions \nde l'email" as a_recover_email #Orange
+		usecase "Donner les \ninfos demandées" as a_recover_input #Orange
 
 	'usecase "Me déconnecter" as a_logout #Orange
 	'	usecase "Me déconnecter \ndepuis le menu principal" as a_logout_menu #Orange

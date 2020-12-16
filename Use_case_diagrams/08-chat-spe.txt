@@ -27,6 +27,8 @@ rectangle "Système de discussion instantanée" as group2 {
 		usecase "Saisir un message" as a_send_write 
 
 	usecase "Envoyer des fichiers" as a_files
+
+	usecase "Pouvoir accèder \nau menu principal" as a_nav #Gainsboro
 }
 
 rectangle "Système de gestion des contacts" as group {
@@ -41,11 +43,7 @@ rectangle "Système de gestion des contacts" as group {
 			usecase "Afficher mes contacts" as a_contact_list #Orange
 				usecase "Afficher tous les \ncontacts du site" as a_contact_list_all #Cyan
 
-}
-
-
-rectangle "Système de navigation" as group3 {
-	usecase "Pouvoir accèder \nau menu principal" as a_nav #Orange
+	usecase "Pouvoir accèder \nau menu principal" as a_nav2 #Gainsboro
 }
 
 user -- a_read
@@ -85,7 +83,8 @@ a_msg_details ..^ a_msg_author : "<<include>>"
 a_contact_select ..^ a_contact_list : "<<include>>"
 a_contact_select ^.. a_contact_list_all : "<<extends>>\nEXT: si acteur == Learn@Home"
 
-user -- a_nav
+user -[#AAA]- a_nav
+user -[#AAA]- a_nav2
 
 note top of user : PRÉCONDITION\n..\nJe suis authentifié
 

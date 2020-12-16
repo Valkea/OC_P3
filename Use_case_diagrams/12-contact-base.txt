@@ -2,16 +2,21 @@
 !include 01-actors.txt
 left to right direction
 
-rectangle "Contact" as group {
-	usecase "Remplir le formulaire de contact" as a_email #Orange
+rectangle "Système de contact" as group {
+	usecase "Voir l'adresse email" as a_email #Orange
+	usecase "Remplir un formulaire\n de contact" as a_form #Orange
 	usecase "Voir le numéro de téléphone" as a_phone #Orange
-	usecase "Voir l'adresse" as a_address #Orange
-	usecase "Utiliser le menu principal" as a_nav #Orange	
+	usecase "Voir l'adresse postale" as a_address #Orange
+	usecase "Voir un plan d'accès" as a_plan #Orange
+
+	usecase "Pouvoir accèder \nau menu principal" as a_nav #Gainsboro
 }
 
 user -- a_email
+a_email ^- a_form
 user -- a_phone
+a_address ^- a_plan
 user -- a_address
-user -- a_nav
+user -[#AAA]- a_nav
 
 @enduml

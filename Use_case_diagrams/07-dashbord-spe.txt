@@ -2,8 +2,10 @@
 !include 01-actors.txt
 left to right direction
 
-rectangle "Tableau de bord" as group {
+rectangle "Système du tableau de bord" as group {
 
+	usecase "Aller rapidement dans une section \nqui nécessite mon attention" as a_watch #Orange
+		usecase "Avoir des liens sur les infos" as a_shortcut #Orange
 
 	usecase "Voir un récaputilatif de \nl'activité de mon compte" as a_recap
 		usecase "Voir les communiqués \ndes admins Learn@Home" as a_new_infos #Orange
@@ -11,14 +13,8 @@ rectangle "Tableau de bord" as group {
 		usecase "Voir mes prochains rendez-vous" as a_new_cal
 		usecase "Voir si j'ai des messages en attente" as a_new_chat
 
-
-	'usecase "PRÉCONDITION\n..\nJe suis authentifié" as a_auth #Yellow
-	'note "PRÉCONDITION\n..\nJe suis authentifié" as a_auth
-	usecase "Utiliser le menu principal" as a_nav #Orange
+	usecase "Pouvoir accèder \nau menu principal" as a_nav #Gainsboro
 }
-
-
-'a_auth <|. group : "\n<<include>>        \n"
 
 a_recap ..^ a_new_infos : "<<include>>"
 a_recap ..^ a_new_chat : "<<include>>"
@@ -26,13 +22,12 @@ a_recap ..^ a_new_todo : "<<include>>"
 a_recap ..^ a_new_cal : "<<include>>"
 
 user -- a_recap
-user -- a_nav
+user -- a_watch
+user -[#AAA]- a_nav
 
-'user -- a_auth
-'a_auth -- a_recap
-'a_auth -- a_nav
+a_watch .^ a_recap : "<<include>>"
+a_watch .^ a_shortcut : "<<include>>"
 
-note right of user : PRÉCONDITION\n..\nJe suis authentifié
-
+note top of user : PRÉCONDITION\n..\nJe suis authentifié
 
 @enduml

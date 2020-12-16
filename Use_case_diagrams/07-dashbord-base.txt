@@ -5,10 +5,12 @@ left to right direction
 
 rectangle "Tableau de bord" as group {
 	usecase "Voir un récaputilatif de \nl'activité de mon compte" as a_recap
+	usecase "Aller rapidement dans une section \nqui nécessite mon attention" as a_watch
 	usecase "Utiliser le menu principal" as a_nav #Orange	
 }
 
 user -- a_recap
+user -- a_watch
 user -- a_nav
 
 note right of user : PRÉCONDITION\n..\nJe suis authentifié

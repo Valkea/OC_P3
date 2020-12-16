@@ -2,30 +2,40 @@
 !include 01-actors.txt
 left to right direction
 
+title Diagramme de package
 
-rectangle "Learn@Home" as g_system {
-	usecase "M'informer sur Learn@Home" as a_home #Orange
-	usecase "Contacter Learn@Home" as a_contact #Orange
-	usecase "M'identifier" as a_auth
-	usecase "Gérer mon profil" as a_profil #Orange
-	usecase "Voir un récaputilatif \nde mon activité" as a_dash
-	usecase "Discuter en live avec \nles autres utilisateurs" as a_chat
-	usecase "Gérer mes rendez-vous \n " as a_cal
-	usecase "Gérer mes tâches" as a_todo
-	usecase "Naviguer entre \nles rubriques" as a_nav #Orange
-	usecase "Gérer le site \net ses utilisateurs" as a_admin #Orange
+
+rectangle "Learn@Home avec un compte" as g_system {
+	package "Gérer le site \net ses utilisateurs" as admin #Orange
+	package "Naviguer entre \nles rubriques" as menu #Orange
+	package "Voir un récaputilatif \nde mon activité" as tableau_de_bord
+	package "Discuter en live avec \nles autres utilisateurs" as chat
+	package "Gérer mes rendez-vous \n " as calendrier
+	package "Gérer mes tâches" as todo_list
+	package "Gérer mon profil" as profil #Orange
+	package "M'identifier" as authentification
 }
 
+user --- authentification
+user --- profil
+user --- tableau_de_bord
+user --- chat
+user --- calendrier
+user --- todo_list
+user --- menu
+owner --- admin
 
-user -- a_home
-user -- a_contact
-user -- a_auth
-user -- a_profil
-user -- a_dash
-user -- a_chat
-user -- a_cal
-user -- a_todo
-user -- a_nav
-owner -- a_admin
+:Visiteur: as visitor #Yellow
+
+rectangle "Learn@Home sans compte" as g_system2 {
+	package "M'informer" as home #Orange
+	package "Contacter" as contact #Orange
+}
+
+visitor -- home
+visitor -- contact
+visitor ^--- user #BBB
+'home --- user
+'contact --- user
 
 @enduml

@@ -4,11 +4,18 @@ left to right direction
 'top to bottom direction
 
 
-rectangle "Calendrier" as g_calendar {
+rectangle "Système du calendrier" as g_calendar {
 
 	usecase "Solliciter un \nRDV anticipé" as a_rdv_ask #Orange
 		usecase "Saisir \nla demande" as a_rdv_ask_input #Orange
 		usecase "Envoyer un \nmessage urgent \nau tuteur" as a_rdv_ask_send #Orange
+
+	usecase "Ajouter \ndes RDV" as a_rdv_add #Orange
+		usecase "Saisir les \ndétails du RDV" as a_rdv_add_input #Orange
+		usecase "Sélectionner \nun élève à \njoindre au RDV" as a_rdv_add_target_s #Orange
+		usecase "Sélectionner \nun tuteur à \njoindre au RDV" as a_rdv_add_target_t #Orange
+			usecase "Sélectionner \nun contact" as a_select_contact #Gainsboro
+		usecase "Sélectionner des tâches \nà lier au RDV" as a_rdv_tasks #Gainsboro
 
 	usecase "Voir la liste \nde mes RDV" as a_rdv_see
 		usecase "Voir tous les \nRDV du site" as a_rdv_see_all #Cyan
@@ -19,21 +26,14 @@ rectangle "Calendrier" as g_calendar {
 	usecase "Voir les détails \nd'un RDV" as a_view_details #Orange
 		usecase "Sélectionner \nle RDV" as a_rdv_select #Orange
 
-	usecase "Ajouter \ndes RDV" as a_rdv_add #Orange
-		usecase "Saisir les \ndétails du RDV" as a_rdv_add_input #Orange
-		usecase "Sélectionner \nun élève à \njoindre au RDV" as a_rdv_add_target_s #Orange
-		usecase "Sélectionner \nun tuteur à \njoindre au RDV" as a_rdv_add_target_t #Orange
-			usecase "Sélectionner \nun contact" as a_select_contact #White
 		
 	usecase "Editer \ndes RDV" as a_rdv_edit #Orange
 		usecase "Saisir les \nnouvelles \ndonnées" as a_rdv_edit_input #Orange
 		
 
 	usecase "Déplacer \ndes RDV" as a_rdv_move #Orange
-}
 
-rectangle "Système de navigation" as group3 {
-	usecase "Pouvoir accèder \nau menu principal" as a_nav #Orange
+	usecase "Pouvoir accèder \nau menu principal" as a_nav #Gainsboro
 }
 
 'skinparam linetype ortho
@@ -44,7 +44,7 @@ user -- a_rdv_add
 user -- a_rdv_edit
 user -- a_rdv_del
 user -- a_view_details
-user -- a_nav
+user -[#AAA]- a_nav
 student -- a_rdv_ask
 
 a_view_details ..^ a_rdv_select : "<<include>>"
@@ -62,6 +62,8 @@ a_rdv_select .^ a_rdv_see: "<<include>>"
 
 a_rdv_edit ..^ a_rdv_select: "<<include>>"
 a_rdv_edit ^.. a_rdv_edit_input: "<<extends>>\nEXT: si action != drag&drop"
+a_rdv_add ^... a_rdv_tasks: "<<extends>>\nEXT: si RDV tasks > 0"
+a_rdv_edit ^... a_rdv_tasks: "<<extends>>\nEXT: si RDV tasks > 0"
 
 a_rdv_ask ..^ a_rdv_ask_input : "<<include>>"
 a_rdv_ask ..^ a_rdv_ask_send : "<<include>>"
@@ -69,5 +71,6 @@ a_rdv_ask ..^ a_rdv_ask_send : "<<include>>"
 a_rdv_see ^.. a_rdv_see_all : "<<extends>>\nEXT: si acteur == Learn@Home"
 
 note top of user : PRÉCONDITION\n..\nJe suis authentifié
+note right of student : PRÉCONDITION\n..\nJe suis authentifié
 
 @enduml

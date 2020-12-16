@@ -4,12 +4,14 @@ left to right direction
 
 rectangle "Home-page Learn@Home" as g {
 	usecase "M'informer sur l'association" as a_infos #Orange
+	usecase "Contacter l'association" as a_contact #Orange
 	usecase "M'inscrire" as a_signup
 	usecase "M'identifier" as a_signin
 }
 
 
 user -- a_infos
+user -- a_contact
 user -- a_signup
 user -- a_signin
 

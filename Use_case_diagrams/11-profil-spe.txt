@@ -2,28 +2,28 @@
 !include 01-actors.txt
 left to right direction
 
-rectangle "Gestionnaire de profil" as group {
-	usecase "Editer mes informations" as a_edit_txt
+rectangle "Système de gestion du profil" as group {
+	usecase "Editer mes informations" as a_edit_txt #Orange
 		usecase "Saisir mes informations" as a_input #Orange
 
 	usecase "Changer ma photo" as a_edit_photo
 		usecase "Uploader une photo" as a_upload #Orange
 
-	usecase "Clore mon compte" as a_edit_remove
+	usecase "Clore mon compte" as a_edit_remove #Orange
 		usecase "Confirmer ma demande" as a_confirm #Orange
 
-	usecase "Utiliser le menu principal" as a_nav #Orange
+	usecase "Pouvoir accèder \nau menu principal" as a_nav #Gainsboro
 }
 
 user -- a_edit_txt
 user -- a_edit_photo
 user -- a_edit_remove
-user -- a_nav
+user -[#AAA]- a_nav
 
 a_edit_txt ..^ a_input : "<<include>>"
 a_edit_photo ..^ a_upload : "<<include>>"
 a_edit_remove ..^ a_confirm : "<<include>>"
 
-note right of user : PRÉCONDITION\n..\nJe suis authentifié
+note top of user : PRÉCONDITION\n..\nJe suis authentifié
 
 @enduml

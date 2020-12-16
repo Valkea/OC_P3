@@ -4,30 +4,28 @@ left to right direction
 'top to bottom direction
 
 
-rectangle "Calendrier" as g_calendar {
+rectangle "Système de gestion des tâches" as g_calendar {
 
 	usecase "Ajouter \ndes tâches" as a_todo_add 
 		usecase "Saisir les \ndétails d'une tâche" as a_todo_add_input #Orange
 		usecase "Sélectionner \nun élève à \njoindre à la tâche" as a_todo_add_target_s #Orange
-		'usecase "Sélectionner \nun tuteur à \njoindre à la tâche" as a_todo_add_target_t #Orange
-			usecase "Sélectionner \nun contact" as a_select_contact #White
+			usecase "Sélectionner \nun contact" as a_select_contact #Gainsboro
 	usecase "Ajouter \ndes tâches \nà un élève" as a_todo_add_student
+		usecase "Sélectionner un RDV \nauquel lier cette tâche" as a_rdv #Gainsboro
 
 	usecase "Editer \ndes tâches" as a_todo_edit #Orange
 		usecase "Saisir les \nnouvelles \ndonnées" as a_todo_edit_input #Orange
 
 	usecase "Supprimer \ndes tâches" as a_todo_del #Orange
-		usecase "Clore des tâches" as a_todo_ok #Orange
+		usecase "Clore \ndes tâches" as a_todo_ok #Orange
 
 	usecase "Voir la liste \nde mes tâches" as a_todo_see
 		usecase "Voir toutes \nles tâches d'un \nutilisateur" as a_todo_see_all #Cyan
 
 	usecase "Voir les détails \nd'une tâche" as a_view_details #Orange
 		usecase "Sélectionner \nune tâche" as a_todo_select #Orange		
-}
 
-rectangle "Système de navigation" as group3 {
-	usecase "Pouvoir accèder \nau menu principal" as a_nav #Orange
+	usecase "Pouvoir accèder \nau menu principal" as a_nav #Gainsboro
 }
 
 'skinparam linetype ortho
@@ -39,7 +37,7 @@ user -- a_todo_edit
 user -- a_todo_del
 user -- a_todo_ok
 user -- a_view_details
-user -- a_nav
+user -[#AAA]- a_nav
 
 a_view_details ..^ a_todo_select : "<<include>>"
 
@@ -60,6 +58,8 @@ a_todo_select .^ a_todo_see: "<<include>>"
 
 a_todo_edit ..^ a_todo_select: "<<include>>"
 a_todo_edit ^.. a_todo_edit_input: "<<extends>>\nEXT: si action != drag&drop"
+a_todo_edit ^.. a_rdv: "<<extends>>\nEXT: si action RDV tasks > 0"
+a_todo_add ^.. a_rdv: "<<extends>>\nEXT: si action RDV tasks > 0"
 
 
 a_todo_see ^.. a_todo_see_all : "<<extends>>\nEXT: si acteur == Learn@Home"
