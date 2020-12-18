@@ -2,7 +2,7 @@
 !include 01-actors.txt
 left to right direction
 
-rectangle "Système de navigation principal" as group {
+rectangle "Système de navigation principal" as group #FFF {
 
 	usecase "Aller sur la page de \ngestion de l'association" as a_menu_admin #Orange
 	usecase "Aller sur la page contact" as a_menu_contact #Orange

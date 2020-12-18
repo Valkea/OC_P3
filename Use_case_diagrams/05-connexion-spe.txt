@@ -1,10 +1,9 @@
-
 @startuml
 !include 01-actors.txt
 left to right direction
 
 
-rectangle "Système d'authentification" as g_auth {
+rectangle "Système d'authentification" as g_auth #FFF {
 	usecase "M'inscrire" as a_signup
 		usecase "Selectionner \nle bon groupe\nÉtudiant / Tuteur / Staff" as a_select #Orange
 		usecase "Saisir mes infos \npersonnelles" as a_info_input #Orange

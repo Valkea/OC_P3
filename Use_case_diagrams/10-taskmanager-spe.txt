@@ -1,10 +1,9 @@
 @startuml
 !include 01-actors.txt
 left to right direction
-'top to bottom direction
 
 
-rectangle "Système de gestion des tâches" as g_calendar {
+rectangle "Système de gestion des tâches" as g_calendar #FFF {
 
 	usecase "Ajouter \ndes tâches" as a_todo_add 
 		usecase "Saisir les \ndétails d'une tâche" as a_todo_add_input #Orange

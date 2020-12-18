@@ -1,19 +1,22 @@
 @startuml
 !include 01-actors.txt
+skinparam backgroundcolor transparent
+
 left to right direction
+top to bottom direction
 
 title Diagramme de package
 
 
-rectangle "Learn@Home avec un compte" as g_system {
+rectangle "Learn@Home avec un compte" as g_system #FFF {
 	package "Gérer le site \net ses utilisateurs" as admin #Orange
+	package "M'identifier" as authentification
 	package "Naviguer entre \nles rubriques" as menu #Orange
 	package "Voir un récaputilatif \nde mon activité" as tableau_de_bord
 	package "Discuter en live avec \nles autres utilisateurs" as chat
 	package "Gérer mes rendez-vous \n " as calendrier
 	package "Gérer mes tâches" as todo_list
 	package "Gérer mon profil" as profil #Orange
-	package "M'identifier" as authentification
 }
 
 user --- authentification
@@ -27,7 +30,7 @@ owner --- admin
 
 :Visiteur: as visitor #Yellow
 
-rectangle "Learn@Home sans compte" as g_system2 {
+rectangle "Learn@Home sans compte" as g_system2 #FFF {
 	package "M'informer" as home #Orange
 	package "Contacter" as contact #Orange
 }

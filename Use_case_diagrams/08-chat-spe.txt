@@ -2,7 +2,7 @@
 !include 01-actors.txt
 left to right direction
 
-rectangle "Système de discussion instantanée" as group2 {
+rectangle "Système de discussion instantanée" as group2 #FFF{
 
 
 
@@ -31,7 +31,7 @@ rectangle "Système de discussion instantanée" as group2 {
 	usecase "Pouvoir accèder \nau menu principal" as a_nav #Gainsboro
 }
 
-rectangle "Système de gestion des contacts" as group {
+rectangle "Système de gestion des contacts" as group #FFF {
 
 	usecase "Gérer mes contacts" as a_contact
 		usecase "Ajouter un contact" as a_contact_add

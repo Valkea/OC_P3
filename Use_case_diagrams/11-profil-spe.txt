@@ -1,8 +1,9 @@
 @startuml
 !include 01-actors.txt
+
 left to right direction
 
-rectangle "Système de gestion du profil" as group {
+rectangle "Système de gestion du profil" as group #FFF {
 	usecase "Editer mes informations" as a_edit_txt #Orange
 		usecase "Saisir mes informations" as a_input #Orange
 

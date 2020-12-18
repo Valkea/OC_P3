@@ -1,5 +1,6 @@
 @startuml
 left to right direction
+skinparam backgroundcolor transparent
 
 :Parent: as parent
 :Enfant en difficulté scolaire: as student
@@ -8,13 +9,13 @@ left to right direction
 
 :Utilisateur du site: as user #Yellow
 
-'parent -[#BBB]^ student
-student ^-[#BBB] parent
-student -[#BBB]-^ user
-mentor -[#BBB]-^ user
-owner -[#BBB]-^ user
+'parent -[#555]^ student
+student ^-[#555] parent
+student -[#555]-^ user
+mentor -[#555]-^ user
+owner -[#555]-^ user
 
 ':Visiteur: as visitor
-'visitor -^ user #BBB
+'visitor -^ user #555
 
 @enduml

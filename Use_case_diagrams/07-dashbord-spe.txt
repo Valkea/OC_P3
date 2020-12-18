@@ -2,7 +2,7 @@
 !include 01-actors.txt
 left to right direction
 
-rectangle "Système du tableau de bord" as group {
+rectangle "Système du tableau de bord" as group #FFF {
 
 	usecase "Aller rapidement dans une section \nqui nécessite mon attention" as a_watch #Orange
 		usecase "Avoir des liens sur les infos" as a_shortcut #Orange
